@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  GraphAlgorithmsVisualizer
 //
-//  Created by Mohamed Mohamed on 8/3/18.
+//  Created by Mohamed Mohamed (mohayusu) on 8/3/18.
 //  Copyright © 2018 Mohamed Mohamed. All rights reserved.
 //
 
