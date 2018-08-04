@@ -14,7 +14,7 @@
         <!--Graph View Controller-->
         <scene sceneID="QAh-g5-5S5">
             <objects>
-                <viewController id="juF-TV-gOj" customClass="GraphViewController" customModule="GraphAlgorithmsVisualizer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="juF-TV-gOj" customClass="GraphViewController" customModule="GraphAlgorithmsSimulator" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YDA-dG-CUi"/>
                         <viewControllerLayoutGuide type="bottom" id="NCa-5y-1eF"/>
@@ -24,17 +24,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2cm-x5-2ra">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1NA-KL-bF5" customClass="Graph" customModule="GraphAlgorithmsVisualizer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="582.5"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1NA-KL-bF5" customClass="Graph" customModule="GraphAlgorithmsSimulator" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="543"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lCR-FA-jjq" customClass="Line" customModule="GraphAlgorithmsSimulator" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="543"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <gestureRecognizers/>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="DfN-Ct-CXm" appends="YES" id="cUa-gU-lr3"/>
+                                                </connections>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="lCR-FA-jjq" secondAttribute="bottom" id="cBC-Jh-Jy5"/>
+                                            <constraint firstAttribute="trailing" secondItem="lCR-FA-jjq" secondAttribute="trailing" id="hlR-XY-8r7"/>
+                                            <constraint firstItem="lCR-FA-jjq" firstAttribute="leading" secondItem="1NA-KL-bF5" secondAttribute="leading" id="kPe-7L-GUB"/>
+                                            <constraint firstItem="lCR-FA-jjq" firstAttribute="top" secondItem="1NA-KL-bF5" secondAttribute="top" id="unk-ug-u82"/>
+                                        </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ook-Um-qoF" userLabel="controlButton">
-                                        <rect key="frame" x="0.0" y="582.5" width="375" height="64.5"/>
+                                        <rect key="frame" x="0.0" y="543" width="375" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ISC-dN-FX2">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -62,21 +79,45 @@
                                     <constraint firstItem="Ook-Um-qoF" firstAttribute="top" secondItem="1NA-KL-bF5" secondAttribute="bottom" id="tTx-rE-NMU"/>
                                 </constraints>
                             </stackView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n4V-bp-ZX7">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Kruskal's algorithm" id="kZl-0B-4d2">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="HamburgerIcon" id="dav-Kj-E6s"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="NCa-5y-1eF" firstAttribute="top" secondItem="2cm-x5-2ra" secondAttribute="bottom" id="0rI-AF-gsh"/>
-                            <constraint firstItem="2cm-x5-2ra" firstAttribute="top" secondItem="YDA-dG-CUi" secondAttribute="bottom" id="T1G-Ho-esm"/>
+                            <constraint firstItem="n4V-bp-ZX7" firstAttribute="leading" secondItem="FAu-PG-jh1" secondAttribute="leading" id="4g7-Zq-vZW"/>
+                            <constraint firstItem="n4V-bp-ZX7" firstAttribute="trailing" secondItem="FAu-PG-jh1" secondAttribute="trailing" id="7pp-JH-BiA"/>
+                            <constraint firstItem="2cm-x5-2ra" firstAttribute="top" secondItem="n4V-bp-ZX7" secondAttribute="bottom" id="T1G-Ho-esm"/>
                             <constraint firstItem="2cm-x5-2ra" firstAttribute="leading" secondItem="bAE-JE-omw" secondAttribute="leading" id="j8B-0d-asq"/>
+                            <constraint firstItem="n4V-bp-ZX7" firstAttribute="top" secondItem="YDA-dG-CUi" secondAttribute="bottom" id="kLf-Ly-R1r"/>
                             <constraint firstAttribute="trailing" secondItem="2cm-x5-2ra" secondAttribute="trailing" id="tBq-hb-4mX"/>
+                            <constraint firstItem="2cm-x5-2ra" firstAttribute="top" secondItem="n4V-bp-ZX7" secondAttribute="bottom" id="xeh-rZ-HCx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FAu-PG-jh1"/>
                     </view>
+                    <connections>
+                        <outlet property="graphViewOutlet" destination="1NA-KL-bF5" id="ETV-Ak-WUY"/>
+                        <outlet property="linesView" destination="lCR-FA-jjq" id="Fr2-1D-h6R"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sVG-l1-n9F" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="DfN-Ct-CXm">
+                    <connections>
+                        <action selector="graphTapped:" destination="juF-TV-gOj" id="a6W-VB-GEG"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="124" y="44"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="HamburgerIcon" width="30" height="30"/>
+    </resources>
 </document>
