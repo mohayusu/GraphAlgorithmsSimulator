@@ -13,10 +13,11 @@
 		D9BA2664211514E600709267 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9BA2663211514E600709267 /* Assets.xcassets */; };
 		D9BA2667211514E600709267 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9BA2665211514E600709267 /* LaunchScreen.storyboard */; };
 		D9BA266F2115190E00709267 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BA266E2115190E00709267 /* Graph.swift */; };
+		D9BA26702115436200709267 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9BA2668211514E600709267 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D9BA2659211514E400709267 /* GraphAlgorithmsVisualizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GraphAlgorithmsVisualizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9BA2659211514E400709267 /* GraphAlgorithmsSimulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GraphAlgorithmsSimulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BA265C211514E400709267 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9BA265E211514E400709267 /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		D9BA2661211514E400709267 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -40,7 +41,7 @@
 		D9BA2650211514E400709267 = {
 			isa = PBXGroup;
 			children = (
-				D9BA265B211514E400709267 /* GraphAlgorithmsVisualizer */,
+				D9BA265B211514E400709267 /* GraphAlgorithmsSimulator */,
 				D9BA265A211514E400709267 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,12 +49,12 @@
 		D9BA265A211514E400709267 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D9BA2659211514E400709267 /* GraphAlgorithmsVisualizer.app */,
+				D9BA2659211514E400709267 /* GraphAlgorithmsSimulator.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D9BA265B211514E400709267 /* GraphAlgorithmsVisualizer */ = {
+		D9BA265B211514E400709267 /* GraphAlgorithmsSimulator */ = {
 			isa = PBXGroup;
 			children = (
 				D9BA265C211514E400709267 /* AppDelegate.swift */,
@@ -64,15 +65,15 @@
 				D9BA2665211514E600709267 /* LaunchScreen.storyboard */,
 				D9BA2668211514E600709267 /* Info.plist */,
 			);
-			path = GraphAlgorithmsVisualizer;
+			path = GraphAlgorithmsSimulator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D9BA2658211514E400709267 /* GraphAlgorithmsVisualizer */ = {
+		D9BA2658211514E400709267 /* GraphAlgorithmsSimulator */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D9BA266B211514E600709267 /* Build configuration list for PBXNativeTarget "GraphAlgorithmsVisualizer" */;
+			buildConfigurationList = D9BA266B211514E600709267 /* Build configuration list for PBXNativeTarget "GraphAlgorithmsSimulator" */;
 			buildPhases = (
 				D9BA2655211514E400709267 /* Sources */,
 				D9BA2656211514E400709267 /* Frameworks */,
@@ -82,9 +83,9 @@
 			);
 			dependencies = (
 			);
-			name = GraphAlgorithmsVisualizer;
+			name = GraphAlgorithmsSimulator;
 			productName = GraphAlgorithmsVisualizer;
-			productReference = D9BA2659211514E400709267 /* GraphAlgorithmsVisualizer.app */;
+			productReference = D9BA2659211514E400709267 /* GraphAlgorithmsSimulator.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -102,7 +103,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D9BA2654211514E400709267 /* Build configuration list for PBXProject "GraphAlgorithmsVisualizer" */;
+			buildConfigurationList = D9BA2654211514E400709267 /* Build configuration list for PBXProject "GraphAlgorithmsSimulator" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -115,7 +116,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D9BA2658211514E400709267 /* GraphAlgorithmsVisualizer */,
+				D9BA2658211514E400709267 /* GraphAlgorithmsSimulator */,
 			);
 		};
 /* End PBXProject section */
@@ -125,6 +126,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9BA26702115436200709267 /* Info.plist in Resources */,
 				D9BA2667211514E600709267 /* LaunchScreen.storyboard in Resources */,
 				D9BA2664211514E600709267 /* Assets.xcassets in Resources */,
 				D9BA2662211514E400709267 /* Main.storyboard in Resources */,
@@ -286,12 +288,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YAP4G37TTZ;
-				INFOPLIST_FILE = GraphAlgorithmsVisualizer/Info.plist;
+				INFOPLIST_FILE = GraphAlgorithmsSimulator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mohayusu.GraphAlgorithmsVisualizer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mohayusu.GraphAlgorithmsSimulator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -304,12 +306,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YAP4G37TTZ;
-				INFOPLIST_FILE = GraphAlgorithmsVisualizer/Info.plist;
+				INFOPLIST_FILE = GraphAlgorithmsSimulator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mohayusu.GraphAlgorithmsVisualizer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mohayusu.GraphAlgorithmsSimulator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -319,7 +321,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D9BA2654211514E400709267 /* Build configuration list for PBXProject "GraphAlgorithmsVisualizer" */ = {
+		D9BA2654211514E400709267 /* Build configuration list for PBXProject "GraphAlgorithmsSimulator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D9BA2669211514E600709267 /* Debug */,
@@ -328,7 +330,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D9BA266B211514E600709267 /* Build configuration list for PBXNativeTarget "GraphAlgorithmsVisualizer" */ = {
+		D9BA266B211514E600709267 /* Build configuration list for PBXNativeTarget "GraphAlgorithmsSimulator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D9BA266C211514E600709267 /* Debug */,
