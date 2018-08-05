@@ -12,26 +12,35 @@ class GraphViewController: UIViewController {
 
     @IBOutlet weak var graphViewOutlet: Graph!
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var linesView: UIView!
     
     @IBAction func graphTapped(_ sender: UITapGestureRecognizer) {
-        var location = sender.location(in: view)
+        let location = sender.location(in: view)
         let button = UIButton(frame: CGRect(x: location.x, y: location.y, width: 15, height: 15))
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         button.clipsToBounds = true
         button.backgroundColor = .blue
-        print(location)
-        location.x = graphViewOutlet.bounds.width / 2
-        location.y = graphViewOutlet.bounds.height / 2
-        print(location)
         self.view.addSubview(button)
+    }
+    
+    func sideMenus() {
+        if revealViewController() != nil {
+            menuButton.target = revealViewController()
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            revealViewController().rearViewRevealWidth = 250
+            
+            view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        UIApplication.shared.statusBarStyle = .lightContent
         linesView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        UIApplication.shared.statusBarStyle = .lightContent
+        sideMenus()
     }
 
     override func didReceiveMemoryWarning() {

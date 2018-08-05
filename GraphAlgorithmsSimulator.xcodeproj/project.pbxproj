@@ -15,6 +15,8 @@
 		D9BA266F2115190E00709267 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BA266E2115190E00709267 /* Graph.swift */; };
 		D9BA26702115436200709267 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9BA2668211514E600709267 /* Info.plist */; };
 		D9BA26722115679100709267 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BA26712115679100709267 /* Line.swift */; };
+		D9BA267A211649CA00709267 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BA2679211649CA00709267 /* SWRevealViewController.m */; };
+		D9BA267C2116574C00709267 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BA267B2116574C00709267 /* MenuTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,10 @@
 		D9BA2668211514E600709267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9BA266E2115190E00709267 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		D9BA26712115679100709267 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		D9BA2677211649C900709267 /* GraphAlgorithmsSimulator-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GraphAlgorithmsSimulator-Bridging-Header.h"; sourceTree = "<group>"; };
+		D9BA2678211649C900709267 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		D9BA2679211649CA00709267 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		D9BA267B2116574C00709267 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,14 +65,18 @@
 		D9BA265B211514E400709267 /* GraphAlgorithmsSimulator */ = {
 			isa = PBXGroup;
 			children = (
+				D9BA2678211649C900709267 /* SWRevealViewController.h */,
+				D9BA2679211649CA00709267 /* SWRevealViewController.m */,
 				D9BA265C211514E400709267 /* AppDelegate.swift */,
 				D9BA265E211514E400709267 /* GraphViewController.swift */,
 				D9BA26712115679100709267 /* Line.swift */,
 				D9BA2660211514E400709267 /* Main.storyboard */,
+				D9BA267B2116574C00709267 /* MenuTableViewController.swift */,
 				D9BA266E2115190E00709267 /* Graph.swift */,
 				D9BA2663211514E600709267 /* Assets.xcassets */,
 				D9BA2665211514E600709267 /* LaunchScreen.storyboard */,
 				D9BA2668211514E600709267 /* Info.plist */,
+				D9BA2677211649C900709267 /* GraphAlgorithmsSimulator-Bridging-Header.h */,
 			);
 			path = GraphAlgorithmsSimulator;
 			sourceTree = "<group>";
@@ -103,6 +113,7 @@
 				TargetAttributes = {
 					D9BA2658211514E400709267 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
 					};
 				};
 			};
@@ -145,8 +156,10 @@
 			files = (
 				D9BA266F2115190E00709267 /* Graph.swift in Sources */,
 				D9BA26722115679100709267 /* Line.swift in Sources */,
+				D9BA267C2116574C00709267 /* MenuTableViewController.swift in Sources */,
 				D9BA265F211514E400709267 /* GraphViewController.swift in Sources */,
 				D9BA265D211514E400709267 /* AppDelegate.swift in Sources */,
+				D9BA267A211649CA00709267 /* SWRevealViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +303,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YAP4G37TTZ;
 				INFOPLIST_FILE = GraphAlgorithmsSimulator/Info.plist;
@@ -299,6 +313,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mohayusu.GraphAlgorithmsSimulator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GraphAlgorithmsSimulator/GraphAlgorithmsSimulator-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -308,6 +324,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YAP4G37TTZ;
 				INFOPLIST_FILE = GraphAlgorithmsSimulator/Info.plist;
@@ -317,6 +334,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mohayusu.GraphAlgorithmsSimulator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GraphAlgorithmsSimulator/GraphAlgorithmsSimulator-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
