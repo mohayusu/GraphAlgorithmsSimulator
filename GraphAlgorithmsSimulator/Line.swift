@@ -12,10 +12,16 @@ class Line: UIView {
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     var line = UIBezierPath()
-    var points: [CGPoint] = []
+    var coordinates: [CGPoint] = []
     
-    func addPoint() {
-        
+    func addPoint(coordinate: CGPoint) {
+        coordinates.append(coordinate)
+    }
+    
+    func printLines() {
+        for i in coordinates {
+            print(i)
+        }
     }
     
     override func draw(_ rect: CGRect) {

@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,61 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2cm-x5-2ra">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1NA-KL-bF5" customClass="Graph" customModule="GraphAlgorithmsSimulator" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="543"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lCR-FA-jjq" customClass="Line" customModule="GraphAlgorithmsSimulator" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="543"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <gestureRecognizers/>
-                                                <connections>
-                                                    <outletCollection property="gestureRecognizers" destination="DfN-Ct-CXm" appends="YES" id="cUa-gU-lr3"/>
-                                                </connections>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <gestureRecognizers/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="lCR-FA-jjq" secondAttribute="bottom" id="cBC-Jh-Jy5"/>
-                                            <constraint firstAttribute="trailing" secondItem="lCR-FA-jjq" secondAttribute="trailing" id="hlR-XY-8r7"/>
-                                            <constraint firstItem="lCR-FA-jjq" firstAttribute="leading" secondItem="1NA-KL-bF5" secondAttribute="leading" id="kPe-7L-GUB"/>
-                                            <constraint firstItem="lCR-FA-jjq" firstAttribute="top" secondItem="1NA-KL-bF5" secondAttribute="top" id="unk-ug-u82"/>
-                                        </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ook-Um-qoF" userLabel="controls">
-                                        <rect key="frame" x="0.0" y="543" width="375" height="60"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place at least two points to continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jGN-QJ-dwt">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.65473202720000001" green="0.65473202720000001" blue="0.65473202720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstItem="jGN-QJ-dwt" firstAttribute="leading" secondItem="Ook-Um-qoF" secondAttribute="leading" id="Ezq-fu-UHy"/>
-                                            <constraint firstAttribute="bottom" secondItem="jGN-QJ-dwt" secondAttribute="bottom" id="L32-JU-DHE"/>
-                                            <constraint firstItem="jGN-QJ-dwt" firstAttribute="top" secondItem="Ook-Um-qoF" secondAttribute="top" id="RKq-hs-DI7"/>
-                                            <constraint firstAttribute="trailing" secondItem="jGN-QJ-dwt" secondAttribute="trailing" id="jJi-se-kjb"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Ook-Um-qoF" secondAttribute="trailing" id="4Yl-Nq-ldN"/>
-                                    <constraint firstAttribute="bottom" secondItem="Ook-Um-qoF" secondAttribute="bottom" id="6N5-wX-A0j"/>
-                                    <constraint firstItem="Ook-Um-qoF" firstAttribute="leading" secondItem="2cm-x5-2ra" secondAttribute="leading" id="CdY-qH-cJw"/>
-                                    <constraint firstItem="1NA-KL-bF5" firstAttribute="leading" secondItem="2cm-x5-2ra" secondAttribute="leading" id="Jew-Eh-rF1"/>
-                                    <constraint firstItem="Ook-Um-qoF" firstAttribute="height" secondItem="2cm-x5-2ra" secondAttribute="height" multiplier="0.1" id="Nbv-tC-Ow9"/>
-                                    <constraint firstItem="1NA-KL-bF5" firstAttribute="top" secondItem="2cm-x5-2ra" secondAttribute="top" id="RZ0-87-PsX"/>
-                                    <constraint firstAttribute="trailing" secondItem="1NA-KL-bF5" secondAttribute="trailing" id="SR3-Ed-6Sh"/>
-                                    <constraint firstItem="Ook-Um-qoF" firstAttribute="top" secondItem="1NA-KL-bF5" secondAttribute="bottom" id="tTx-rE-NMU"/>
-                                </constraints>
-                            </stackView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n4V-bp-ZX7">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -92,35 +36,82 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nty-bJ-CXq" customClass="Graph" customModule="GraphAlgorithmsSimulator" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jPb-zu-fFy">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="jPb-zu-fFy" firstAttribute="top" secondItem="nty-bJ-CXq" secondAttribute="top" id="2Gr-sN-W7D"/>
+                                    <constraint firstAttribute="trailing" secondItem="jPb-zu-fFy" secondAttribute="trailing" id="Wc6-mZ-YLS"/>
+                                    <constraint firstItem="jPb-zu-fFy" firstAttribute="leading" secondItem="nty-bJ-CXq" secondAttribute="leading" id="fkT-zT-J1P"/>
+                                    <constraint firstAttribute="bottom" secondItem="jPb-zu-fFy" secondAttribute="bottom" id="hiY-vn-edV"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="uXC-xl-c21" appends="YES" id="8VO-Eo-Px3"/>
+                                </connections>
+                            </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0OS-YX-uql">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem title="Back" id="HHe-t6-dmI"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="Btb-1z-ETc"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="VUS-ld-pzK"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="YHe-vp-25w"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="b7U-3g-jJ3"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="p69-Ka-tUY"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="fQ0-5M-RJ8"/>
+                                    <barButtonItem title="Next" id="BWH-3l-kpB"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="9zV-ns-eSZ"/>
+                                </items>
+                                <color key="barTintColor" red="0.65473202720000001" green="0.65473202720000001" blue="0.65473202720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </toolbar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter more than two points" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aod-ML-c8l">
+                                <rect key="frame" x="84" y="635" width="207" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="HPc-YD-hNv" firstAttribute="bottom" secondItem="2cm-x5-2ra" secondAttribute="bottom" id="0rI-AF-gsh"/>
+                            <constraint firstItem="nty-bJ-CXq" firstAttribute="leading" secondItem="HPc-YD-hNv" secondAttribute="leading" id="2Iz-aV-Gb6"/>
                             <constraint firstItem="n4V-bp-ZX7" firstAttribute="leading" secondItem="HPc-YD-hNv" secondAttribute="leading" id="4g7-Zq-vZW"/>
                             <constraint firstItem="n4V-bp-ZX7" firstAttribute="trailing" secondItem="HPc-YD-hNv" secondAttribute="trailing" id="7pp-JH-BiA"/>
-                            <constraint firstItem="2cm-x5-2ra" firstAttribute="top" secondItem="n4V-bp-ZX7" secondAttribute="bottom" id="T1G-Ho-esm"/>
-                            <constraint firstItem="2cm-x5-2ra" firstAttribute="leading" secondItem="HPc-YD-hNv" secondAttribute="leading" id="j8B-0d-asq"/>
+                            <constraint firstItem="HPc-YD-hNv" firstAttribute="trailing" secondItem="nty-bJ-CXq" secondAttribute="trailing" id="QSv-s2-FLc"/>
+                            <constraint firstItem="0OS-YX-uql" firstAttribute="bottom" secondItem="HPc-YD-hNv" secondAttribute="bottom" id="dLW-Ec-sTy"/>
+                            <constraint firstItem="0OS-YX-uql" firstAttribute="leading" secondItem="HPc-YD-hNv" secondAttribute="leading" id="jrG-4a-IIc"/>
                             <constraint firstItem="n4V-bp-ZX7" firstAttribute="top" secondItem="HPc-YD-hNv" secondAttribute="top" id="kLf-Ly-R1r"/>
-                            <constraint firstItem="HPc-YD-hNv" firstAttribute="trailing" secondItem="2cm-x5-2ra" secondAttribute="trailing" id="tBq-hb-4mX"/>
-                            <constraint firstItem="2cm-x5-2ra" firstAttribute="top" secondItem="n4V-bp-ZX7" secondAttribute="bottom" id="xeh-rZ-HCx"/>
+                            <constraint firstItem="0OS-YX-uql" firstAttribute="top" secondItem="nty-bJ-CXq" secondAttribute="bottom" id="oxp-06-Vb2"/>
+                            <constraint firstItem="nty-bJ-CXq" firstAttribute="top" secondItem="n4V-bp-ZX7" secondAttribute="bottom" id="uUa-DZ-9Da"/>
+                            <constraint firstItem="0OS-YX-uql" firstAttribute="trailing" secondItem="HPc-YD-hNv" secondAttribute="trailing" id="xdT-BC-fwf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HPc-YD-hNv"/>
                     </view>
                     <connections>
-                        <outlet property="graphViewOutlet" destination="1NA-KL-bF5" id="ETV-Ak-WUY"/>
-                        <outlet property="linesView" destination="lCR-FA-jjq" id="Fr2-1D-h6R"/>
+                        <outlet property="linesView" destination="jPb-zu-fFy" id="aRP-Wl-a2T"/>
                         <outlet property="menuButton" destination="dav-Kj-E6s" id="gCd-EV-U0Z"/>
+                        <outlet property="navBar" destination="n4V-bp-ZX7" id="Yzj-2v-LVT"/>
+                        <outlet property="statusLabel" destination="aod-ML-c8l" id="RQG-W5-kpl"/>
+                        <outlet property="stepBackButton" destination="HHe-t6-dmI" id="h0u-Ks-cO6"/>
+                        <outlet property="stepForwardButton" destination="BWH-3l-kpB" id="adA-Hz-oun"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sVG-l1-n9F" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="DfN-Ct-CXm">
+                <tapGestureRecognizer id="uXC-xl-c21">
                     <connections>
-                        <action selector="graphTapped:" destination="juF-TV-gOj" id="a6W-VB-GEG"/>
+                        <action selector="graphTapped:" destination="juF-TV-gOj" id="xdB-pT-rSP"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1026" y="242"/>
+            <point key="canvasLocation" x="845.60000000000002" y="241.52923538230885"/>
         </scene>
         <!--Menu Table View Controller-->
         <scene sceneID="PgY-bv-KfC">
@@ -199,7 +190,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jrE-Il-s10" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-279" y="242"/>
+            <point key="canvasLocation" x="41" y="242"/>
         </scene>
         <!--Reveal View Controller-->
         <scene sceneID="H36-lG-85y">
