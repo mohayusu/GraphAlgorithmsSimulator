@@ -39,9 +39,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nty-bJ-CXq" customClass="Graph" customModule="GraphAlgorithmsSimulator" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jPb-zu-fFy">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jPb-zu-fFy" customClass="LinesAndPoints" customModule="GraphAlgorithmsSimulator" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="bjY-2v-pUQ" appends="YES" id="eUc-d8-e3I"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -52,9 +56,6 @@
                                     <constraint firstItem="jPb-zu-fFy" firstAttribute="leading" secondItem="nty-bJ-CXq" secondAttribute="leading" id="fkT-zT-J1P"/>
                                     <constraint firstAttribute="bottom" secondItem="jPb-zu-fFy" secondAttribute="bottom" id="hiY-vn-edV"/>
                                 </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="uXC-xl-c21" appends="YES" id="8VO-Eo-Px3"/>
-                                </connections>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0OS-YX-uql">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
@@ -96,7 +97,7 @@
                         <viewLayoutGuide key="safeArea" id="HPc-YD-hNv"/>
                     </view>
                     <connections>
-                        <outlet property="linesView" destination="jPb-zu-fFy" id="aRP-Wl-a2T"/>
+                        <outlet property="linesAndPointsView" destination="jPb-zu-fFy" id="2OC-r7-hSv"/>
                         <outlet property="menuButton" destination="dav-Kj-E6s" id="gCd-EV-U0Z"/>
                         <outlet property="navBar" destination="n4V-bp-ZX7" id="Yzj-2v-LVT"/>
                         <outlet property="statusLabel" destination="aod-ML-c8l" id="RQG-W5-kpl"/>
@@ -105,9 +106,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sVG-l1-n9F" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="uXC-xl-c21">
+                <tapGestureRecognizer id="bjY-2v-pUQ">
                     <connections>
-                        <action selector="graphTapped:" destination="juF-TV-gOj" id="xdB-pT-rSP"/>
+                        <action selector="graphTapped:" destination="juF-TV-gOj" id="bp1-JK-SWq"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

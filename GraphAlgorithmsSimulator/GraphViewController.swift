@@ -11,34 +11,33 @@ import UIKit
 class GraphViewController: UIViewController {
 
     
+    @IBOutlet weak var linesAndPointsView: LinesAndPoints!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var stepBackButton: UIBarButtonItem!
     @IBOutlet weak var stepForwardButton: UIBarButtonItem!
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    @IBOutlet weak var linesView: UIView!
     var numPoints: Int = 0
-    var lines: Line = Line()
     
     @IBAction func graphTapped(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: view)
+        let location = sender.location(in: linesAndPointsView)
         
-        let button = UIButton(frame: CGRect(x: location.x, y: location.y, width: 15, height: 15))
+        let diameter = CGFloat(LinesAndPoints.PropertyKeys.pointDiameter)
+        let button = UIButton(frame: CGRect(x: location.x - diameter / 2, y: location.y - diameter / 2,
+                                            width: diameter, height: diameter))
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         button.clipsToBounds = true
         button.backgroundColor = .blue
-        self.view.addSubview(button)
+        linesAndPointsView.addSubview(button)
         
         numPoints += 1
-        lines.addPoint(coordinate: location)
+        linesAndPointsView.addPoint(coordinate: location)
         
         if numPoints == 3 {
             revealToolbarButtons()
         }
+        linesAndPointsView.updateView()
         
-        if numPoints == 10 {
-            lines.printLines()
-        }
     }
     
     func sideMenus() {
@@ -74,8 +73,8 @@ class GraphViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        linesView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+
+        linesAndPointsView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         UIApplication.shared.statusBarStyle = .lightContent
         sideMenus()
         
