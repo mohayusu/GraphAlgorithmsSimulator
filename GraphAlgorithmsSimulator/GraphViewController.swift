@@ -36,10 +36,13 @@ class GraphViewController: UIViewController {
         if numPoints == 3 {
             revealToolbarButtons()
         }
-        linesAndPointsView.updateView()
+      //  linesAndPointsView.updateView()
         
     }
     
+    @IBAction func stepForwardButtonPressed(_ sender: UIBarButtonItem) {
+        linesAndPointsView.updateView()
+    }
     func sideMenus() {
         if revealViewController() != nil {
             menuButton.target = revealViewController()
@@ -69,6 +72,7 @@ class GraphViewController: UIViewController {
         stepForwardButton.isEnabled = true
         
         statusLabel.textColor = navBar.barTintColor!
+        statusLabel.text = ""
     }
     
     override func viewDidLoad() {

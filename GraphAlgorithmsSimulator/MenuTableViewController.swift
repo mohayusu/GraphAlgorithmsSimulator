@@ -9,9 +9,31 @@
 import UIKit
 
 class MenuTableViewController: UITableViewController {
-
+    
+    @IBOutlet weak var completeGraphSwitch: UISwitch!
+    @IBOutlet weak var kruskalButton: UIButton!
+    
+    var currentAlgorithmSelected: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        currentAlgorithmSelected = kruskalButton
+    }
+    
+    @IBAction func completeGraphStatusChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            
+        }
+        else {
+            
+        }
+    }
+    
+    @IBAction func algorithmChoiceTapped(_ sender: UIButton) {
+        currentAlgorithmSelected.setTitleColor(.black, for: .normal)
+        sender.setTitleColor(.blue, for: .normal)
+        currentAlgorithmSelected = sender
     }
     
     override func viewWillAppear(_ animated: Bool) {
