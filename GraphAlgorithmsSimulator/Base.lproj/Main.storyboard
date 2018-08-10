@@ -33,6 +33,11 @@
                                 <items>
                                     <navigationItem title="Kruskal's algorithm" id="kZl-0B-4d2">
                                         <barButtonItem key="leftBarButtonItem" title="Item" image="HamburgerIcon" id="dav-Kj-E6s"/>
+                                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Begin" id="BG4-Dd-leu">
+                                            <connections>
+                                                <action selector="beginButtonTapped:" destination="juF-TV-gOj" id="dNx-Cw-ae2"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -57,32 +62,43 @@
                                     <constraint firstAttribute="bottom" secondItem="jPb-zu-fFy" secondAttribute="bottom" id="hiY-vn-edV"/>
                                 </constraints>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0OS-YX-uql">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pd2-er-PhQ">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <items>
-                                    <barButtonItem title="Back" id="HHe-t6-dmI"/>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="Btb-1z-ETc"/>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="VUS-ld-pzK"/>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="YHe-vp-25w"/>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="b7U-3g-jJ3"/>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="p69-Ka-tUY"/>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="fQ0-5M-RJ8"/>
-                                    <barButtonItem title="Next" id="BWH-3l-kpB">
-                                        <connections>
-                                            <action selector="stepForwardButtonPressed:" destination="juF-TV-gOj" id="UYd-oi-nmR"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="9zV-ns-eSZ"/>
-                                </items>
-                                <color key="barTintColor" red="0.65473202720000001" green="0.65473202720000001" blue="0.65473202720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </toolbar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter more than two points" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aod-ML-c8l">
-                                <rect key="frame" x="84" y="635" width="207" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ad4-zx-q1c">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bL-1L-F9a">
+                                                <rect key="frame" x="0.0" y="0.0" width="125" height="44"/>
+                                                <color key="backgroundColor" red="0.65473202720000001" green="0.65473202720000001" blue="0.65473202720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="Skip"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bg2-lx-Unt">
+                                                <rect key="frame" x="125" y="0.0" width="125" height="44"/>
+                                                <color key="backgroundColor" red="0.65473202720000001" green="0.65473202720000001" blue="0.65473202720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Simulate"/>
+                                                <connections>
+                                                    <action selector="simulateAndClearBtnTapped:" destination="juF-TV-gOj" eventType="touchUpInside" id="1Sw-VN-RFL"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YPJ-K1-SkR">
+                                                <rect key="frame" x="250" y="0.0" width="125" height="44"/>
+                                                <color key="backgroundColor" red="0.65473202720000001" green="0.65473202720000001" blue="0.65473202720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Step forward"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ad4-zx-q1c" secondAttribute="bottom" id="BCV-S0-VzS"/>
+                                    <constraint firstItem="ad4-zx-q1c" firstAttribute="leading" secondItem="Pd2-er-PhQ" secondAttribute="leading" id="ELh-lK-XjI"/>
+                                    <constraint firstAttribute="trailing" secondItem="ad4-zx-q1c" secondAttribute="trailing" id="Q8b-yj-TXV"/>
+                                    <constraint firstAttribute="height" constant="44" id="TKm-Ee-nQy"/>
+                                    <constraint firstItem="ad4-zx-q1c" firstAttribute="top" secondItem="Pd2-er-PhQ" secondAttribute="top" id="ZAP-Wl-Eu0"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -90,23 +106,25 @@
                             <constraint firstItem="nty-bJ-CXq" firstAttribute="leading" secondItem="HPc-YD-hNv" secondAttribute="leading" id="2Iz-aV-Gb6"/>
                             <constraint firstItem="n4V-bp-ZX7" firstAttribute="leading" secondItem="HPc-YD-hNv" secondAttribute="leading" id="4g7-Zq-vZW"/>
                             <constraint firstItem="n4V-bp-ZX7" firstAttribute="trailing" secondItem="HPc-YD-hNv" secondAttribute="trailing" id="7pp-JH-BiA"/>
+                            <constraint firstItem="Pd2-er-PhQ" firstAttribute="top" secondItem="nty-bJ-CXq" secondAttribute="bottom" id="OkS-g9-eHl"/>
                             <constraint firstItem="HPc-YD-hNv" firstAttribute="trailing" secondItem="nty-bJ-CXq" secondAttribute="trailing" id="QSv-s2-FLc"/>
-                            <constraint firstItem="0OS-YX-uql" firstAttribute="bottom" secondItem="HPc-YD-hNv" secondAttribute="bottom" id="dLW-Ec-sTy"/>
-                            <constraint firstItem="0OS-YX-uql" firstAttribute="leading" secondItem="HPc-YD-hNv" secondAttribute="leading" id="jrG-4a-IIc"/>
+                            <constraint firstItem="Pd2-er-PhQ" firstAttribute="leading" secondItem="HPc-YD-hNv" secondAttribute="leading" id="SXL-KE-u0i"/>
+                            <constraint firstItem="Pd2-er-PhQ" firstAttribute="trailing" secondItem="HPc-YD-hNv" secondAttribute="trailing" id="cjZ-Df-c2T"/>
                             <constraint firstItem="n4V-bp-ZX7" firstAttribute="top" secondItem="HPc-YD-hNv" secondAttribute="top" id="kLf-Ly-R1r"/>
-                            <constraint firstItem="0OS-YX-uql" firstAttribute="top" secondItem="nty-bJ-CXq" secondAttribute="bottom" id="oxp-06-Vb2"/>
                             <constraint firstItem="nty-bJ-CXq" firstAttribute="top" secondItem="n4V-bp-ZX7" secondAttribute="bottom" id="uUa-DZ-9Da"/>
-                            <constraint firstItem="0OS-YX-uql" firstAttribute="trailing" secondItem="HPc-YD-hNv" secondAttribute="trailing" id="xdT-BC-fwf"/>
+                            <constraint firstItem="Pd2-er-PhQ" firstAttribute="bottom" secondItem="HPc-YD-hNv" secondAttribute="bottom" id="wSq-Ay-RaW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HPc-YD-hNv"/>
                     </view>
                     <connections>
+                        <outlet property="beginButton" destination="BG4-Dd-leu" id="YAx-Db-Hv0"/>
                         <outlet property="linesAndPointsView" destination="jPb-zu-fFy" id="2OC-r7-hSv"/>
                         <outlet property="menuButton" destination="dav-Kj-E6s" id="gCd-EV-U0Z"/>
                         <outlet property="navBar" destination="n4V-bp-ZX7" id="Yzj-2v-LVT"/>
-                        <outlet property="statusLabel" destination="aod-ML-c8l" id="RQG-W5-kpl"/>
-                        <outlet property="stepBackButton" destination="HHe-t6-dmI" id="h0u-Ks-cO6"/>
-                        <outlet property="stepForwardButton" destination="BWH-3l-kpB" id="adA-Hz-oun"/>
+                        <outlet property="simulateAndClearBtn" destination="bg2-lx-Unt" id="P2i-yi-nVV"/>
+                        <outlet property="skipButton" destination="4bL-1L-F9a" id="Uqz-hL-E40"/>
+                        <outlet property="stepForwardButton" destination="YPJ-K1-SkR" id="lDH-jZ-jVL"/>
+                        <outlet property="tapGesture" destination="bjY-2v-pUQ" id="rO6-0e-Z7L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sVG-l1-n9F" sceneMemberID="firstResponder"/>

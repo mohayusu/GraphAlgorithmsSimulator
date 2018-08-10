@@ -15,9 +15,18 @@ class LinesAndPoints: UIView {
     
     var line = UIBezierPath()
     var coordinates: [CGPoint] = []
+    var numPoints: Int = 0
     
     func addPoint(coordinate: CGPoint) {
         coordinates.append(coordinate)
+        numPoints += 1
+    }
+    
+    func clearScreen() {
+        coordinates.removeAll()
+        subviews.forEach({ $0.removeFromSuperview() }) // removes points
+        numPoints = 0
+        updateView() // removes lines; numPoints is 0
     }
     
     func updateView() {

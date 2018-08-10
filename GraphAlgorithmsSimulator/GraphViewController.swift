@@ -9,15 +9,21 @@
 import UIKit
 
 class GraphViewController: UIViewController {
-
+    struct PropertyKeys {
+        static let clear = "Clear"
+        static let simulate = "Simulate"
+        static let begin = "Begin"
+        static let minPointsToBegin = 2
+    }
     
+    @IBOutlet weak var simulateAndClearBtn: UIButton!
+    @IBOutlet var tapGesture: UITapGestureRecognizer!
+    @IBOutlet weak var stepForwardButton: UIButton!
+    @IBOutlet weak var skipButton: UIButton!
+    @IBOutlet weak var beginButton: UIBarButtonItem!
     @IBOutlet weak var linesAndPointsView: LinesAndPoints!
-    @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var navBar: UINavigationBar!
-    @IBOutlet weak var stepBackButton: UIBarButtonItem!
-    @IBOutlet weak var stepForwardButton: UIBarButtonItem!
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    var numPoints: Int = 0
     
     @IBAction func graphTapped(_ sender: UITapGestureRecognizer) {
         let location = sender.location(in: linesAndPointsView)
@@ -30,19 +36,35 @@ class GraphViewController: UIViewController {
         button.backgroundColor = .blue
         linesAndPointsView.addSubview(button)
         
-        numPoints += 1
         linesAndPointsView.addPoint(coordinate: location)
         
-        if numPoints == 3 {
-            revealToolbarButtons()
+        if linesAndPointsView.numPoints > PropertyKeys.minPointsToBegin {
+            beginButton.isEnabled = true
         }
-      //  linesAndPointsView.updateView()
-        
+    }
+
+    @IBAction func simulateAndClearBtnTapped(_ sender: UIButton) {
+        if simulateAndClearBtn.currentTitle == PropertyKeys.clear {
+            beginButton.title = PropertyKeys.begin
+            beginButton.isEnabled = false
+            linesAndPointsView.clearScreen()
+        }
     }
     
-    @IBAction func stepForwardButtonPressed(_ sender: UIBarButtonItem) {
-        linesAndPointsView.updateView()
+    @IBAction func beginButtonTapped(_ sender: Any) {
+        if beginButton.title == PropertyKeys.clear {
+            beginButton.title = PropertyKeys.begin
+            beginButton.isEnabled = false
+            tapGesture.isEnabled = true
+            hideToolbarButtons()
+            linesAndPointsView.clearScreen()
+        } else {
+            beginButton.title = PropertyKeys.clear
+            tapGesture.isEnabled = false
+            revealToolbarButtons()
+        }
     }
+    
     func sideMenus() {
         if revealViewController() != nil {
             menuButton.target = revealViewController()
@@ -55,24 +77,17 @@ class GraphViewController: UIViewController {
     }
     
     func hideToolbarButtons() {
-        stepBackButton.tintColor = navBar.barTintColor!
-        stepBackButton.isEnabled = false
+        skipButton.isHidden = true
+        stepForwardButton.isHidden = true
         
-        stepForwardButton.tintColor = navBar.barTintColor!
-        stepForwardButton.isEnabled = false
-        
-        statusLabel.textColor = .black
+        simulateAndClearBtn.setTitle(PropertyKeys.clear, for: .normal)
     }
     
     func revealToolbarButtons() {
-        stepBackButton.tintColor = .white
-        stepBackButton.isEnabled = true
+        skipButton.isHidden = false
+        stepForwardButton.isHidden = false
         
-        stepForwardButton.tintColor = .white
-        stepForwardButton.isEnabled = true
-        
-        statusLabel.textColor = navBar.barTintColor!
-        statusLabel.text = ""
+        simulateAndClearBtn.setTitle(PropertyKeys.simulate, for: .normal)
     }
     
     override func viewDidLoad() {
