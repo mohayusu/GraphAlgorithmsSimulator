@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D9B672C2211D271D005FB77C /* Algorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B672C1211D271D005FB77C /* Algorithms.swift */; };
 		D9BA265D211514E400709267 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BA265C211514E400709267 /* AppDelegate.swift */; };
 		D9BA265F211514E400709267 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BA265E211514E400709267 /* GraphViewController.swift */; };
 		D9BA2662211514E400709267 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D9BA2660211514E400709267 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D9B672C1211D271D005FB77C /* Algorithms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithms.swift; sourceTree = "<group>"; };
 		D9BA2659211514E400709267 /* GraphAlgorithmsSimulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GraphAlgorithmsSimulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BA265C211514E400709267 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D9BA265E211514E400709267 /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				D9BA2679211649CA00709267 /* SWRevealViewController.m */,
 				D9BA265C211514E400709267 /* AppDelegate.swift */,
 				D9BA265E211514E400709267 /* GraphViewController.swift */,
+				D9B672C1211D271D005FB77C /* Algorithms.swift */,
 				D9BA26712115679100709267 /* LinesAndPoints.swift */,
 				D9BA2660211514E400709267 /* Main.storyboard */,
 				D9BA267B2116574C00709267 /* MenuTableViewController.swift */,
@@ -156,6 +159,7 @@
 			files = (
 				D9BA266F2115190E00709267 /* Graph.swift in Sources */,
 				D9BA26722115679100709267 /* LinesAndPoints.swift in Sources */,
+				D9B672C2211D271D005FB77C /* Algorithms.swift in Sources */,
 				D9BA267C2116574C00709267 /* MenuTableViewController.swift in Sources */,
 				D9BA265F211514E400709267 /* GraphViewController.swift in Sources */,
 				D9BA265D211514E400709267 /* AppDelegate.swift in Sources */,

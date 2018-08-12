@@ -33,9 +33,9 @@
                                 <items>
                                     <navigationItem title="Kruskal's algorithm" id="kZl-0B-4d2">
                                         <barButtonItem key="leftBarButtonItem" title="Item" image="HamburgerIcon" id="dav-Kj-E6s"/>
-                                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Begin" id="BG4-Dd-leu">
+                                        <barButtonItem key="rightBarButtonItem" title="Clear" id="BG4-Dd-leu">
                                             <connections>
-                                                <action selector="beginButtonTapped:" destination="juF-TV-gOj" id="dNx-Cw-ae2"/>
+                                                <action selector="clearButtonTapped:" destination="juF-TV-gOj" id="IWS-Xx-AgE"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -73,13 +73,16 @@
                                                 <color key="backgroundColor" red="0.65473202720000001" green="0.65473202720000001" blue="0.65473202720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <state key="normal" title="Skip"/>
+                                                <connections>
+                                                    <action selector="skipButtonTapped:" destination="juF-TV-gOj" eventType="touchUpInside" id="hdw-dx-phr"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bg2-lx-Unt">
                                                 <rect key="frame" x="125" y="0.0" width="125" height="44"/>
                                                 <color key="backgroundColor" red="0.65473202720000001" green="0.65473202720000001" blue="0.65473202720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Simulate"/>
                                                 <connections>
-                                                    <action selector="simulateAndClearBtnTapped:" destination="juF-TV-gOj" eventType="touchUpInside" id="1Sw-VN-RFL"/>
+                                                    <action selector="simulateBeginShowBtnTapped:" destination="juF-TV-gOj" eventType="touchUpInside" id="v82-1W-sF6"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YPJ-K1-SkR">
@@ -117,11 +120,11 @@
                         <viewLayoutGuide key="safeArea" id="HPc-YD-hNv"/>
                     </view>
                     <connections>
-                        <outlet property="beginButton" destination="BG4-Dd-leu" id="YAx-Db-Hv0"/>
+                        <outlet property="clearButton" destination="BG4-Dd-leu" id="gV5-l7-BVc"/>
                         <outlet property="linesAndPointsView" destination="jPb-zu-fFy" id="2OC-r7-hSv"/>
                         <outlet property="menuButton" destination="dav-Kj-E6s" id="gCd-EV-U0Z"/>
                         <outlet property="navBar" destination="n4V-bp-ZX7" id="Yzj-2v-LVT"/>
-                        <outlet property="simulateAndClearBtn" destination="bg2-lx-Unt" id="P2i-yi-nVV"/>
+                        <outlet property="simulateBeginShowBtn" destination="bg2-lx-Unt" id="IGT-9r-rSb"/>
                         <outlet property="skipButton" destination="4bL-1L-F9a" id="Uqz-hL-E40"/>
                         <outlet property="stepForwardButton" destination="YPJ-K1-SkR" id="lDH-jZ-jVL"/>
                         <outlet property="tapGesture" destination="bjY-2v-pUQ" id="rO6-0e-Z7L"/>

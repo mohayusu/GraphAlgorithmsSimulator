@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GraphViewController: UIViewController {
+class GraphViewController: UIViewController, LinesAndPointsDelegate {
     struct PropertyKeys {
         static let clear = "Clear"
         static let simulate = "Simulate"
@@ -16,11 +16,11 @@ class GraphViewController: UIViewController {
         static let minPointsToBegin = 2
     }
     
-    @IBOutlet weak var simulateAndClearBtn: UIButton!
+    @IBOutlet weak var simulateBeginShowBtn: UIButton!
     @IBOutlet var tapGesture: UITapGestureRecognizer!
     @IBOutlet weak var stepForwardButton: UIButton!
     @IBOutlet weak var skipButton: UIButton!
-    @IBOutlet weak var beginButton: UIBarButtonItem!
+    @IBOutlet weak var clearButton: UIBarButtonItem!
     @IBOutlet weak var linesAndPointsView: LinesAndPoints!
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var menuButton: UIBarButtonItem!
@@ -39,30 +39,27 @@ class GraphViewController: UIViewController {
         linesAndPointsView.addPoint(coordinate: location)
         
         if linesAndPointsView.numPoints > PropertyKeys.minPointsToBegin {
-            beginButton.isEnabled = true
+            simulateBeginShowBtn.isEnabled = true
         }
     }
 
-    @IBAction func simulateAndClearBtnTapped(_ sender: UIButton) {
-        if simulateAndClearBtn.currentTitle == PropertyKeys.clear {
-            beginButton.title = PropertyKeys.begin
-            beginButton.isEnabled = false
-            linesAndPointsView.clearScreen()
+
+    @IBAction func clearButtonTapped(_ sender: UIBarButtonItem) {
+        hideToolbarButtons()
+        linesAndPointsView.clearScreen()
+        
+    }
+    
+    @IBAction func simulateBeginShowBtnTapped(_ sender: UIButton) {
+        if simulateBeginShowBtn.currentTitle == PropertyKeys.begin {
+            revealToolbarButtons()
         }
     }
     
-    @IBAction func beginButtonTapped(_ sender: Any) {
-        if beginButton.title == PropertyKeys.clear {
-            beginButton.title = PropertyKeys.begin
-            beginButton.isEnabled = false
-            tapGesture.isEnabled = true
-            hideToolbarButtons()
-            linesAndPointsView.clearScreen()
-        } else {
-            beginButton.title = PropertyKeys.clear
-            tapGesture.isEnabled = false
-            revealToolbarButtons()
-        }
+    @IBAction func skipButtonTapped(_ sender: UIButton) {
+        linesAndPointsView.updateView()
+        hideToolbarButtons()
+        tapGesture.isEnabled = false
     }
     
     func sideMenus() {
@@ -79,15 +76,23 @@ class GraphViewController: UIViewController {
     func hideToolbarButtons() {
         skipButton.isHidden = true
         stepForwardButton.isHidden = true
+        simulateBeginShowBtn.isEnabled = false
         
-        simulateAndClearBtn.setTitle(PropertyKeys.clear, for: .normal)
+        simulateBeginShowBtn.setTitle(PropertyKeys.begin, for: .normal)
+        tapGesture.isEnabled = true
     }
     
     func revealToolbarButtons() {
         skipButton.isHidden = false
         stepForwardButton.isHidden = false
         
-        simulateAndClearBtn.setTitle(PropertyKeys.simulate, for: .normal)
+        simulateBeginShowBtn.setTitle(PropertyKeys.simulate, for: .normal)
+        tapGesture.isEnabled = false
+    }
+    
+    func showValue(str: String) { // LinesAndPoints delegate
+        simulateBeginShowBtn.isEnabled = true
+        simulateBeginShowBtn.setTitle("Total weight: \(str) points", for: .normal)
     }
     
     override func viewDidLoad() {
@@ -98,6 +103,7 @@ class GraphViewController: UIViewController {
         sideMenus()
         
         hideToolbarButtons()
+        linesAndPointsView.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
