@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class MenuTableViewController: UITableViewController {
     
     @IBOutlet weak var completeGraphSwitch: UISwitch!
@@ -15,7 +16,11 @@ class MenuTableViewController: UITableViewController {
     
     var currentAlgorithmSelected: UIButton!
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let viewController = segue.destination as! GraphViewController
+        viewController.changeAlgorithmNameTo(algorithm: currentAlgorithmSelected.currentTitle!)
+        viewController.isCompleteGraph = completeGraphSwitch.isOn ? true : false
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         currentAlgorithmSelected = kruskalButton
@@ -23,10 +28,8 @@ class MenuTableViewController: UITableViewController {
     
     @IBAction func completeGraphStatusChanged(_ sender: UISwitch) {
         if sender.isOn {
-            
         }
         else {
-            
         }
     }
     

@@ -14,8 +14,10 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate {
         static let simulate = "Simulate"
         static let begin = "Begin"
         static let minPointsToBegin = 2
+        static let connectPoints = "Make a connected graph by tapping points"
     }
     
+    @IBOutlet weak var algorithmName: UINavigationItem!
     @IBOutlet weak var simulateBeginShowBtn: UIButton!
     @IBOutlet var tapGesture: UITapGestureRecognizer!
     @IBOutlet weak var stepForwardButton: UIButton!
@@ -24,22 +26,77 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate {
     @IBOutlet weak var linesAndPointsView: LinesAndPoints!
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    var isCompleteGraph: Bool!
+    var numPointsTapped: Int!
+    var tempLocation: CGPoint?
+    var selectedButton: UIButton?
     
     @IBAction func graphTapped(_ sender: UITapGestureRecognizer) {
         let location = sender.location(in: linesAndPointsView)
         
-        let diameter = CGFloat(LinesAndPoints.PropertyKeys.pointDiameter)
-        let button = UIButton(frame: CGRect(x: location.x - diameter / 2, y: location.y - diameter / 2,
+        if !isCompleteGraph && simulateBeginShowBtn.currentTitle == PropertyKeys.connectPoints {
+            var minDistance: Double = Double.infinity
+            var minButton: UIButton?
+            for i in linesAndPointsView.allPoints {
+                let tempDistance = Algorithms.calculateDistance(p1: location, p2: i.center)
+                if tempDistance < minDistance {
+                    minDistance = tempDistance
+                    minButton = i
+                }
+            }
+            numPointsTapped = numPointsTapped + 1
+            if numPointsTapped % 2 == 0 {
+                linesAndPointsView.connectPoints(p1: tempLocation!, p2: (minButton?.center)!)
+                tempLocation = minButton?.center
+                selectedButton?.setTitleColor(.white, for: .normal)
+                selectedButton?.backgroundColor = .blue
+                print(linesAndPointsView.isConnectedGraph())
+            } else {
+                minButton?.backgroundColor = .yellow
+                minButton?.setTitleColor(.black, for: .normal)
+                selectedButton = minButton
+                tempLocation = minButton?.center
+            }
+            
+        } else {
+        
+            let diameter = CGFloat(LinesAndPoints.PropertyKeys.pointDiameter)
+            let button = UIButton(frame: CGRect(x: location.x - diameter / 2, y: location.y - diameter / 2,
                                             width: diameter, height: diameter))
-        button.layer.cornerRadius = 0.5 * button.bounds.size.width
-        button.clipsToBounds = true
-        button.backgroundColor = .blue
-        linesAndPointsView.addSubview(button)
+            button.layer.cornerRadius = 0.5 * button.bounds.size.width
+            button.clipsToBounds = true
+            button.backgroundColor = .blue
+            button.setTitle("\(linesAndPointsView.numPoints + 1)", for: .normal)
+            linesAndPointsView.addSubview(button)
+            button.addTarget(self, action: #selector(pointTapped), for: .touchUpInside)
         
-        linesAndPointsView.addPoint(coordinate: location)
+            linesAndPointsView.addPoint(coordinate: location)
+            linesAndPointsView.addButton(button: button)
         
-        if linesAndPointsView.numPoints > PropertyKeys.minPointsToBegin {
-            simulateBeginShowBtn.isEnabled = true
+            if linesAndPointsView.numPoints > PropertyKeys.minPointsToBegin {
+                simulateBeginShowBtn.isEnabled = true
+            }
+        }
+    }
+    
+    @objc func pointTapped(sender: UIButton!) {
+        if !isCompleteGraph && simulateBeginShowBtn.currentTitle == PropertyKeys.connectPoints {
+            if simulateBeginShowBtn.currentTitle != PropertyKeys.begin {
+                numPointsTapped = numPointsTapped + 1
+                if numPointsTapped % 2 == 0 {
+                    linesAndPointsView.connectPoints(p1: tempLocation!, p2: sender.center)
+                    tempLocation = sender.center
+                    selectedButton?.backgroundColor = .blue
+                    selectedButton?.setTitleColor(.white, for: .normal)
+                    print(linesAndPointsView.isConnectedGraph())
+                } else {
+                    tempLocation = sender.center
+                    sender.backgroundColor = .yellow
+                    sender.titleLabel?.textColor = .black
+                    sender.setTitleColor(.black, for: .normal)
+                    selectedButton = sender
+                }
+            }
         }
     }
 
@@ -47,17 +104,24 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate {
     @IBAction func clearButtonTapped(_ sender: UIBarButtonItem) {
         hideToolbarButtons()
         linesAndPointsView.clearScreen()
+        numPointsTapped = 0
+        tempLocation = nil
+        linesAndPointsView.connectingPoints.removeAll()
         
     }
     
     @IBAction func simulateBeginShowBtnTapped(_ sender: UIButton) {
         if simulateBeginShowBtn.currentTitle == PropertyKeys.begin {
-            revealToolbarButtons()
+            if isCompleteGraph {
+                revealToolbarButtons()
+            } else {
+                simulateBeginShowBtn.setTitle(PropertyKeys.connectPoints, for: .normal)
+            }
         }
     }
     
     @IBAction func skipButtonTapped(_ sender: UIButton) {
-        linesAndPointsView.updateView()
+        linesAndPointsView.updateView(isFinal: true)
         hideToolbarButtons()
         tapGesture.isEnabled = false
     }
@@ -94,6 +158,10 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate {
         simulateBeginShowBtn.isEnabled = true
         simulateBeginShowBtn.setTitle("Total weight: \(str) points", for: .normal)
     }
+
+    func changeAlgorithmNameTo(algorithm: String) {
+        algorithmName.title = algorithm
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,7 +172,14 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate {
         
         hideToolbarButtons()
         linesAndPointsView.delegate = self
+        numPointsTapped = 0
+        isCompleteGraph = true
     }
+    
+    @IBAction func unwindToGraph(segue: UIStoryboardSegue) {
+
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

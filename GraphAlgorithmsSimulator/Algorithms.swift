@@ -31,6 +31,25 @@ class Algorithms {
         return sqrt(Double(x) * Double(x) + Double(y) * Double(y));
     }
     
+    func dijkstra(coordinates: [CGPoint]) -> [Pair] {
+        var myPairs: [Pair] = []
+        var verticesInfo: [VertexInfo] = []
+        let numPoints = coordinates.count
+        verticesInfo.reserveCapacity(numPoints)
+        for coordinate in coordinates {
+            var tempInfo: VertexInfo = VertexInfo(vertex: coordinate, distance: Double.infinity, precedingVertex: 0, visited: false)
+            tempInfo.vertex = coordinate
+            verticesInfo.append(tempInfo)
+        }
+        var falsePoints: [Int] = []
+        falsePoints.reserveCapacity(numPoints)
+        
+        for i in 0..<numPoints {
+            falsePoints.append(i)
+        }
+        
+        return myPairs
+    }
     func kruskals(coordinates: [CGPoint]) -> [Pair] {
         var myPairs: [Pair] = []
         var verticesInfo: [VertexInfo] = []
