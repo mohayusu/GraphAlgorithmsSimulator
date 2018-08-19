@@ -46,11 +46,11 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate {
             }
             numPointsTapped = numPointsTapped + 1
             if numPointsTapped % 2 == 0 {
-                linesAndPointsView.connectPoints(p1: tempLocation!, p2: (minButton?.center)!)
+                linesAndPointsView.connectPointsUndirected(p1: selectedButton!, p2: minButton!)
                 tempLocation = minButton?.center
                 selectedButton?.setTitleColor(.white, for: .normal)
                 selectedButton?.backgroundColor = .blue
-                print(linesAndPointsView.isConnectedGraph())
+              //  print(linesAndPointsView.isConnectedGraph())
             } else {
                 minButton?.backgroundColor = .yellow
                 minButton?.setTitleColor(.black, for: .normal)
@@ -69,12 +69,15 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate {
             button.setTitle("\(linesAndPointsView.numPoints + 1)", for: .normal)
             linesAndPointsView.addSubview(button)
             button.addTarget(self, action: #selector(pointTapped), for: .touchUpInside)
-        
-            linesAndPointsView.addPoint(coordinate: location)
-            linesAndPointsView.addButton(button: button)
+    
+            linesAndPointsView.addPoint(button: button)
         
             if linesAndPointsView.numPoints > PropertyKeys.minPointsToBegin {
                 simulateBeginShowBtn.isEnabled = true
+            }
+            
+            if isCompleteGraph {
+                linesAndPointsView.addConnectionToCompleteGraph(num: linesAndPointsView.numPoints)
             }
         }
     }
@@ -84,11 +87,11 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate {
             if simulateBeginShowBtn.currentTitle != PropertyKeys.begin {
                 numPointsTapped = numPointsTapped + 1
                 if numPointsTapped % 2 == 0 {
-                    linesAndPointsView.connectPoints(p1: tempLocation!, p2: sender.center)
+                    linesAndPointsView.connectPointsUndirected(p1: selectedButton!, p2: sender)
                     tempLocation = sender.center
                     selectedButton?.backgroundColor = .blue
                     selectedButton?.setTitleColor(.white, for: .normal)
-                    print(linesAndPointsView.isConnectedGraph())
+                //    print(linesAndPointsView.isConnectedGraph())
                 } else {
                     tempLocation = sender.center
                     sender.backgroundColor = .yellow
@@ -106,8 +109,6 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate {
         linesAndPointsView.clearScreen()
         numPointsTapped = 0
         tempLocation = nil
-        linesAndPointsView.connectingPoints.removeAll()
-        
     }
     
     @IBAction func simulateBeginShowBtnTapped(_ sender: UIButton) {
@@ -117,6 +118,8 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate {
             } else {
                 simulateBeginShowBtn.setTitle(PropertyKeys.connectPoints, for: .normal)
             }
+        } else if simulateBeginShowBtn.currentTitle == PropertyKeys.connectPoints {
+            revealToolbarButtons()
         }
     }
     

@@ -31,12 +31,12 @@ class Algorithms {
         return sqrt(Double(x) * Double(x) + Double(y) * Double(y));
     }
     
-    func dijkstra(coordinates: [CGPoint]) -> [Pair] {
+    func dijkstra(points: [CGPoint]) -> [Pair] {
         var myPairs: [Pair] = []
         var verticesInfo: [VertexInfo] = []
-        let numPoints = coordinates.count
+        let numPoints = points.count
         verticesInfo.reserveCapacity(numPoints)
-        for coordinate in coordinates {
+        for coordinate in points {
             var tempInfo: VertexInfo = VertexInfo(vertex: coordinate, distance: Double.infinity, precedingVertex: 0, visited: false)
             tempInfo.vertex = coordinate
             verticesInfo.append(tempInfo)
@@ -50,14 +50,16 @@ class Algorithms {
         
         return myPairs
     }
-    func kruskals(coordinates: [CGPoint]) -> [Pair] {
+    
+    
+    func kruskals(points: [UIButton], connections: [Int: [Int]], isConnected: Bool) -> [Pair] {
         var myPairs: [Pair] = []
         var verticesInfo: [VertexInfo] = []
-        let numPoints = coordinates.count
+        let numPoints = points.count
         verticesInfo.reserveCapacity(numPoints)
-        for coordinate in coordinates {
-            var tempInfo: VertexInfo = VertexInfo(vertex: coordinate, distance: Double.infinity, precedingVertex: 0, visited: false)
-            tempInfo.vertex = coordinate
+        for point in points {
+            var tempInfo: VertexInfo = VertexInfo(vertex: point.center, distance: Double.infinity, precedingVertex: 0, visited: false)
+            tempInfo.vertex = point.center
             verticesInfo.append(tempInfo)
         }
         var falsePoints: [Int] = []
@@ -85,9 +87,13 @@ class Algorithms {
                     minDistanceLocationInverticesInfo = falsePoints[i]
                 }
             }
+            
             // if there wasn't any minimum distances found
             if (minDistance == Double.infinity) {
                 print("invalid")
+                for i in falsePoints {
+                    print(i)
+                }
                 exit(1);
             }
             
@@ -107,14 +113,17 @@ class Algorithms {
                 start = false;
             }
             
+            let nextTrue = falsePoints[minDistanceLocation]
             // sets it to true by deleting it from falsePoints
             falsePoints.remove(at: minDistanceLocation)
             
             for i in 0..<falsePoints.count {
-                tempDistance = Algorithms.calculateDistance(p1: verticesInfo[falsePoints[i]].vertex, p2: verticesInfo[minDistanceLocationInverticesInfo].vertex)
-                if (tempDistance < verticesInfo[falsePoints[i]].distance) {
-                    verticesInfo[falsePoints[i]].precedingVertex = minDistanceLocationInverticesInfo;
-                    verticesInfo[falsePoints[i]].distance = tempDistance;
+                if (connections[nextTrue + 1]?.contains(falsePoints[i] + 1))! {
+                    tempDistance = Algorithms.calculateDistance(p1: verticesInfo[falsePoints[i]].vertex, p2: verticesInfo[minDistanceLocationInverticesInfo].vertex)
+                    if (tempDistance < verticesInfo[falsePoints[i]].distance) {
+                        verticesInfo[falsePoints[i]].precedingVertex = minDistanceLocationInverticesInfo;
+                        verticesInfo[falsePoints[i]].distance = tempDistance;
+                    }
                 }
             }
         }
