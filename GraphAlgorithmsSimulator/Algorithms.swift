@@ -12,6 +12,8 @@ import Foundation
 struct Pair {
     var first: Int
     var second: Int
+    var isInFinalGraph: Bool
+    var savePointTemporarily: Bool?
 }
 
 
@@ -19,11 +21,12 @@ class Algorithms {
     struct VertexInfo {
         var vertex: CGPoint //  pair<int, int> vertex;
         var distance = Double.infinity
-        var precedingVertex: Int = 0
+        var precedingVertex: Int
         var visited = false;
     }
     
-    var totalWeight: Double = 0;
+    var totalWeight: Double = 0
+    var currentStep: Int = 0
     
     static func calculateDistance(p1: CGPoint, p2: CGPoint) -> Double {
         let x = p1.x - p2.x
@@ -37,7 +40,8 @@ class Algorithms {
         let numPoints = points.count
         verticesInfo.reserveCapacity(numPoints)
         for coordinate in points {
-            var tempInfo: VertexInfo = VertexInfo(vertex: coordinate, distance: Double.infinity, precedingVertex: 0, visited: false)
+            var tempInfo: VertexInfo = VertexInfo(vertex: coordinate, distance: Double.infinity,
+                                                  precedingVertex: -1, visited: false)
             tempInfo.vertex = coordinate
             verticesInfo.append(tempInfo)
         }
@@ -58,10 +62,12 @@ class Algorithms {
         let numPoints = points.count
         verticesInfo.reserveCapacity(numPoints)
         for point in points {
-            var tempInfo: VertexInfo = VertexInfo(vertex: point.center, distance: Double.infinity, precedingVertex: 0, visited: false)
+            var tempInfo: VertexInfo = VertexInfo(vertex: point.center, distance: Double.infinity,
+                                                  precedingVertex: -1, visited: false)
             tempInfo.vertex = point.center
             verticesInfo.append(tempInfo)
         }
+        verticesInfo[0].precedingVertex = 0
         var falsePoints: [Int] = []
         falsePoints.reserveCapacity(numPoints)
         
@@ -81,10 +87,18 @@ class Algorithms {
             minDistance = Double.infinity
             // selects vertx having the smallest tentative distance
             for i in 0..<falsePoints.count {
-                if verticesInfo[falsePoints[i]].distance < minDistance {
-                    minDistance = verticesInfo[falsePoints[i]].distance
-                    minDistanceLocation = i
-                    minDistanceLocationInverticesInfo = falsePoints[i]
+                if (verticesInfo[falsePoints[i]].precedingVertex != -1) {
+                    var aPair = Pair(first: falsePoints[i], second: verticesInfo[falsePoints[i]].precedingVertex, isInFinalGraph: false, savePointTemporarily: false)
+                    if verticesInfo[falsePoints[i]].distance < minDistance {
+                        aPair.savePointTemporarily = true
+                        minDistance = verticesInfo[falsePoints[i]].distance
+                        minDistanceLocation = i
+                        minDistanceLocationInverticesInfo = falsePoints[i]
+                    }
+                    // so we don't add (0, 0) in myPairs
+                    if (verticesInfo[falsePoints[i]].precedingVertex != 0 && i != 0) {
+                        myPairs.append(aPair)
+                    }
                 }
             }
             
@@ -100,14 +114,8 @@ class Algorithms {
             totalWeight += minDistance;
             // !start just makes sure we don't print out (0, 0)
             if (!start) {
-                if (minDistanceLocationInverticesInfo < verticesInfo[minDistanceLocationInverticesInfo].precedingVertex) {
-                    let tempPair: Pair = Pair(first: minDistanceLocationInverticesInfo, second: verticesInfo[minDistanceLocationInverticesInfo].precedingVertex)
-                    myPairs.append(tempPair)
-                }
-                else {
-                    let tempPair: Pair = Pair(first: verticesInfo[minDistanceLocationInverticesInfo].precedingVertex, second: minDistanceLocationInverticesInfo)
-                    myPairs.append(tempPair)
-                }
+                let tempPair: Pair = Pair(first: minDistanceLocationInverticesInfo, second: verticesInfo[minDistanceLocationInverticesInfo].precedingVertex, isInFinalGraph: true, savePointTemporarily: nil)
+                myPairs.append(tempPair)
             }
             else {
                 start = false;
@@ -119,11 +127,14 @@ class Algorithms {
             
             for i in 0..<falsePoints.count {
                 if (connections[nextTrue + 1]?.contains(falsePoints[i] + 1))! {
+                    let aPair = Pair(first: falsePoints[i], second: minDistanceLocationInverticesInfo,
+                                     isInFinalGraph: false, savePointTemporarily: false)
                     tempDistance = Algorithms.calculateDistance(p1: verticesInfo[falsePoints[i]].vertex, p2: verticesInfo[minDistanceLocationInverticesInfo].vertex)
                     if (tempDistance < verticesInfo[falsePoints[i]].distance) {
                         verticesInfo[falsePoints[i]].precedingVertex = minDistanceLocationInverticesInfo;
                         verticesInfo[falsePoints[i]].distance = tempDistance;
                     }
+                    myPairs.append(aPair)
                 }
             }
         }

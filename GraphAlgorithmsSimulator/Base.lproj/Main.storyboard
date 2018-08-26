@@ -89,6 +89,9 @@
                                                 <rect key="frame" x="250" y="0.0" width="125" height="44"/>
                                                 <color key="backgroundColor" red="0.65473202720000001" green="0.65473202720000001" blue="0.65473202720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Step forward"/>
+                                                <connections>
+                                                    <action selector="stepForwardButtonTapped:" destination="juF-TV-gOj" eventType="touchUpInside" id="ifq-g4-IkA"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>

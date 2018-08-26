@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GraphViewController: UIViewController, LinesAndPointsDelegate {
+class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDelegate {
     struct PropertyKeys {
         static let clear = "Clear"
         static let simulate = "Simulate"
@@ -125,8 +125,10 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate {
     
     @IBAction func skipButtonTapped(_ sender: UIButton) {
         linesAndPointsView.updateView(isFinal: true)
-        hideToolbarButtons()
-        tapGesture.isEnabled = false
+    }
+    
+    @IBAction func stepForwardButtonTapped(_ sender: UIButton) {
+        linesAndPointsView.updateViewSteps()
     }
     
     func sideMenus() {
@@ -134,6 +136,8 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate {
             menuButton.target = revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             revealViewController().rearViewRevealWidth = 250
+            let menu = revealViewController().rearViewController as! MenuTableViewController
+            menu.delegate = self
             
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             
@@ -157,9 +161,19 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate {
         tapGesture.isEnabled = false
     }
     
-    func showValue(str: String) { // LinesAndPoints delegate
+    func showFinalWeightValue(str: String) { // LinesAndPoints delegate
+        hideToolbarButtons()
+        tapGesture.isEnabled = false
         simulateBeginShowBtn.isEnabled = true
         simulateBeginShowBtn.setTitle("Total weight: \(str) points", for: .normal)
+    }
+    
+    func canShangeConnectedStatus() -> Bool {
+        if linesAndPointsView.numPoints > 0 {
+            return false
+        } else {
+            return true
+        }
     }
 
     func changeAlgorithmNameTo(algorithm: String) {
@@ -182,7 +196,6 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate {
     @IBAction func unwindToGraph(segue: UIStoryboardSegue) {
 
     }
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -8,13 +8,18 @@
 
 import UIKit
 
+protocol MenuTableDelegate {
+    func canShangeConnectedStatus() -> Bool
+}
 
 class MenuTableViewController: UITableViewController {
     
     @IBOutlet weak var completeGraphSwitch: UISwitch!
     @IBOutlet weak var kruskalButton: UIButton!
+    var delegate: MenuTableDelegate?
     
     var currentAlgorithmSelected: UIButton!
+    var canChangeConnectedStatus: Bool!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let viewController = segue.destination as! GraphViewController
@@ -27,10 +32,7 @@ class MenuTableViewController: UITableViewController {
     }
     
     @IBAction func completeGraphStatusChanged(_ sender: UISwitch) {
-        if sender.isOn {
-        }
-        else {
-        }
+
     }
     
     @IBAction func algorithmChoiceTapped(_ sender: UIButton) {
@@ -45,6 +47,14 @@ class MenuTableViewController: UITableViewController {
         self.revealViewController().view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         self.revealViewController().frontViewController.revealViewController().tapGestureRecognizer()
         self.revealViewController().frontViewController.view.isUserInteractionEnabled = false
+        
+        canChangeConnectedStatus = delegate?.canShangeConnectedStatus()
+        
+        if !canChangeConnectedStatus {
+            completeGraphSwitch.isEnabled = false
+        } else {
+            completeGraphSwitch.isEnabled = true
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
