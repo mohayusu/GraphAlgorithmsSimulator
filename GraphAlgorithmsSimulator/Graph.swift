@@ -12,6 +12,35 @@ class Graph: UIView {
     
     var line = UIBezierPath()
     
+    func showYAxisLabels() {
+        var axisLabel = UILabel(frame: CGRect(x: bounds.width / 2 + 5, y: 0, width: 10, height: 10))
+        
+        axisLabel.textAlignment = .center
+        axisLabel.text = "\(bounds.height)"
+        axisLabel.sizeToFit()
+        addSubview(axisLabel)
+        
+        axisLabel = UILabel(frame: CGRect(x: bounds.width / 2 + 5, y: bounds.height - 20, width: 10, height: 10))
+        axisLabel.textAlignment = .center
+        axisLabel.text = "-\(bounds.height)"
+        axisLabel.sizeToFit()
+        addSubview(axisLabel)
+    }
+    
+    func showXAxisLabels() {
+        var axisLabel = UILabel(frame: CGRect(x: 0, y: bounds.height / 2 + 10, width: 10, height: 10))
+        axisLabel.textAlignment = .center
+        axisLabel.text = "-\(bounds.width)"
+        axisLabel.sizeToFit()
+        addSubview(axisLabel)
+        
+        axisLabel = UILabel(frame: CGRect(x: bounds.width - 60, y: bounds.height / 2 + 10, width: 10, height: 10))
+        axisLabel.textAlignment = .center
+        axisLabel.text = "\(bounds.width)"
+        axisLabel.sizeToFit()
+        addSubview(axisLabel)
+    }
+    
     
     // Draws the lines of the graph
     func graph() {
@@ -25,19 +54,7 @@ class Graph: UIView {
         line.lineWidth = 1.5
         line.stroke()
         
-        var axisLabel = UILabel(frame: CGRect(x: bounds.width / 2 + 5, y: 0, width: 10, height: 10))
-        // label.center = CGPoint(x: 160, y: 285)
-        axisLabel.textAlignment = .center
-        axisLabel.text = "\(bounds.height)"
-        axisLabel.sizeToFit()
-        addSubview(axisLabel)
-        
-        axisLabel = UILabel(frame: CGRect(x: bounds.width / 2 + 5, y: bounds.height - 20, width: 10, height: 10))
-        axisLabel.textAlignment = .center
-        axisLabel.text = "-\(bounds.height)"
-        axisLabel.sizeToFit()
-        addSubview(axisLabel)
-        
+        showYAxisLabels()
         
         
         // draws a horizontal line in the middle of the screen
@@ -47,18 +64,7 @@ class Graph: UIView {
         line.lineWidth = 1.5
         line.stroke()
         
-        axisLabel = UILabel(frame: CGRect(x: 0, y: bounds.height / 2 + 10, width: 10, height: 10))
-        // label.center = CGPoint(x: 160, y: 285)
-        axisLabel.textAlignment = .center
-        axisLabel.text = "-\(bounds.width)"
-        axisLabel.sizeToFit()
-        addSubview(axisLabel)
-        
-        axisLabel = UILabel(frame: CGRect(x: bounds.width - 60, y: bounds.height / 2 + 10, width: 10, height: 10))
-        axisLabel.textAlignment = .center
-        axisLabel.text = "\(bounds.width)"
-        axisLabel.sizeToFit()
-        addSubview(axisLabel)
+        showXAxisLabels()
         
         
         // draws vertical lines left of the middle

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol MenuTableDelegate {
-    func canShangeConnectedStatus() -> Bool
+    func canChangeCompleteGraphStatus() -> Bool
 }
 
 class MenuTableViewController: UITableViewController {
@@ -19,7 +19,7 @@ class MenuTableViewController: UITableViewController {
     var delegate: MenuTableDelegate?
     
     var currentAlgorithmSelected: UIButton!
-    var canChangeConnectedStatus: Bool!
+    var canChangeCompleteGraphValue: Bool!
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let viewController = segue.destination as! GraphViewController
@@ -48,9 +48,9 @@ class MenuTableViewController: UITableViewController {
         self.revealViewController().frontViewController.revealViewController().tapGestureRecognizer()
         self.revealViewController().frontViewController.view.isUserInteractionEnabled = false
         
-        canChangeConnectedStatus = delegate?.canShangeConnectedStatus()
+        canChangeCompleteGraphValue = delegate?.canChangeCompleteGraphStatus()
         
-        if !canChangeConnectedStatus {
+        if !canChangeCompleteGraphValue {
             completeGraphSwitch.isEnabled = false
         } else {
             completeGraphSwitch.isEnabled = true

@@ -16,35 +16,79 @@ struct Pair {
     var savePointTemporarily: Bool?
 }
 
+struct Visited {
+    var visited: Bool
+}
+
 
 class Algorithms {
+    struct PropertyKeys {
+        static let kruskal = "Kruskal"
+        static let dijkstra = "Dijkstra"
+    }
+    
     struct VertexInfo {
         var vertex: CGPoint //  pair<int, int> vertex;
         var distance = Double.infinity
         var precedingVertex: Int
-        var visited = false;
     }
     
     var totalWeight: Double = 0
     var currentStep: Int = 0
+    var cache: [Visited] = []
     
     static func calculateDistance(p1: CGPoint, p2: CGPoint) -> Double {
         let x = p1.x - p2.x
         let y = p1.y - p2.y
         return sqrt(Double(x) * Double(x) + Double(y) * Double(y));
     }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /* DFS to check if graph is connected */
     
-    func dijkstra(points: [CGPoint]) -> [Pair] {
+    func isConnected(connections: [Int: [Int]], numPoints: Int) -> Bool {
+        for _ in 0...numPoints {
+            cache.append(Visited(visited: false))
+        }
+
+        search(connections: connections, root: Array(connections.keys)[0])
+        
+        for i in 1...numPoints {
+            if cache[i].visited == false {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    func search(connections: [Int: [Int]], root: Int) {
+        if root > connections.count || root < 1 {
+            return
+        }
+        cache[root].visited = true
+        for connectingEnd in connections[root]! {
+            if cache[connectingEnd].visited == false {
+                search(connections: connections, root: connectingEnd)
+            }
+        }
+    }
+    
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    func dijkstra(points: [UIButton], connections: [Int: [Int]], destination: Int) -> [Pair] {
         var myPairs: [Pair] = []
         var verticesInfo: [VertexInfo] = []
         let numPoints = points.count
         verticesInfo.reserveCapacity(numPoints)
-        for coordinate in points {
-            var tempInfo: VertexInfo = VertexInfo(vertex: coordinate, distance: Double.infinity,
-                                                  precedingVertex: -1, visited: false)
-            tempInfo.vertex = coordinate
+        for point in points {
+            var tempInfo: VertexInfo = VertexInfo(vertex: point.center, distance: Double.infinity,
+                                                  precedingVertex: -1)
+            tempInfo.vertex = point.center
             verticesInfo.append(tempInfo)
         }
+        
         var falsePoints: [Int] = []
         falsePoints.reserveCapacity(numPoints)
         
@@ -52,6 +96,60 @@ class Algorithms {
             falsePoints.append(i)
         }
         
+        for _ in 0..<numPoints {
+            cache.append(Visited(visited: false))
+        }
+        
+        verticesInfo[0].distance = 0
+        cache[0].visited = true
+        var currentPoint: Int? = 0
+        
+        while currentPoint != nil {
+            for connectingEnd in connections[currentPoint! + 1]! {
+                let connectingDistance = Algorithms.calculateDistance(p1: points[currentPoint!].center,
+                                                                p2: points[connectingEnd - 1].center)
+                let totalDistance = connectingDistance + verticesInfo[currentPoint!].distance
+                
+                if verticesInfo[connectingEnd - 1].distance > totalDistance {
+                    verticesInfo[connectingEnd - 1].distance = totalDistance
+                    verticesInfo[connectingEnd - 1].precedingVertex = currentPoint!
+                }
+            }
+            
+            cache[currentPoint!].visited = true
+            
+            if currentPoint! == destination {
+                print("destination \(destination)")
+                totalWeight = verticesInfo[destination].distance
+                var precedingLocation = verticesInfo[destination].precedingVertex
+                
+                while precedingLocation != -1 {
+                    let aPair = Pair(first: precedingLocation, second: currentPoint!, isInFinalGraph: true, savePointTemporarily: nil)
+                    myPairs.append(aPair)
+                    currentPoint = precedingLocation
+                    precedingLocation = verticesInfo[currentPoint!].precedingVertex
+                }
+                return myPairs
+            }
+                
+            var minDistance = Double.infinity
+            var nextCurrentPoint: Int = currentPoint!
+            for (index, vertex) in cache.enumerated() {
+                if !vertex.visited && verticesInfo[index].distance < minDistance {
+                    nextCurrentPoint = index
+                    minDistance = verticesInfo[index].distance
+                }
+            }
+      
+          //  let aPair = Pair(first: currentPoint!, second: nextCurrentPoint, isInFinalGraph: true, savePointTemporarily: nil)
+          //  myPairs.append(aPair)
+                
+            currentPoint = nextCurrentPoint
+            
+            if minDistance == Double.infinity {
+                currentPoint = nil
+            }
+        }
         return myPairs
     }
     
@@ -63,7 +161,7 @@ class Algorithms {
         verticesInfo.reserveCapacity(numPoints)
         for point in points {
             var tempInfo: VertexInfo = VertexInfo(vertex: point.center, distance: Double.infinity,
-                                                  precedingVertex: -1, visited: false)
+                                                  precedingVertex: -1)
             tempInfo.vertex = point.center
             verticesInfo.append(tempInfo)
         }
@@ -75,17 +173,17 @@ class Algorithms {
             falsePoints.append(i)
         }
         
-        verticesInfo[0].distance = 0;
+        verticesInfo[0].distance = 0
         var minDistance: Double
         var tempDistance = Double.infinity
-        var minDistanceLocation: Int = 0;
-        var minDistanceLocationInverticesInfo: Int = 0;
-        totalWeight = 0;
-        verticesInfo[0].distance = 0;
-        var start = true;
+        var minDistanceLocation: Int = 0
+        var minDistanceLocationInverticesInfo: Int = 0
+        totalWeight = 0
+        verticesInfo[0].distance = 0
+        var start = true
         while (!falsePoints.isEmpty) {
             minDistance = Double.infinity
-            // selects vertx having the smallest tentative distance
+            // selects vertex having the smallest tentative distance
             for i in 0..<falsePoints.count {
                 if (verticesInfo[falsePoints[i]].precedingVertex != -1) {
                     var aPair = Pair(first: falsePoints[i], second: verticesInfo[falsePoints[i]].precedingVertex, isInFinalGraph: false, savePointTemporarily: false)
@@ -111,7 +209,7 @@ class Algorithms {
                 exit(1);
             }
             
-            totalWeight += minDistance;
+            totalWeight += (minDistance * 2);
             // !start just makes sure we don't print out (0, 0)
             if (!start) {
                 let tempPair: Pair = Pair(first: minDistanceLocationInverticesInfo, second: verticesInfo[minDistanceLocationInverticesInfo].precedingVertex, isInFinalGraph: true, savePointTemporarily: nil)

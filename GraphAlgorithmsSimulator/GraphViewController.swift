@@ -13,6 +13,7 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
         static let clear = "Clear"
         static let simulate = "Simulate"
         static let begin = "Begin"
+        static let start = "Start"
         static let minPointsToBegin = 2
         static let connectPoints = "Make a connected graph by tapping points"
     }
@@ -34,7 +35,8 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
     @IBAction func graphTapped(_ sender: UITapGestureRecognizer) {
         let location = sender.location(in: linesAndPointsView)
         
-        if !isCompleteGraph && simulateBeginShowBtn.currentTitle == PropertyKeys.connectPoints {
+        if !isCompleteGraph && simulateBeginShowBtn.currentTitle == PropertyKeys.connectPoints ||
+            !isCompleteGraph && simulateBeginShowBtn.currentTitle == PropertyKeys.start {
             var minDistance: Double = Double.infinity
             var minButton: UIButton?
             for i in linesAndPointsView.allPoints {
@@ -47,10 +49,14 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
             numPointsTapped = numPointsTapped + 1
             if numPointsTapped % 2 == 0 {
                 linesAndPointsView.connectPointsUndirected(p1: selectedButton!, p2: minButton!)
+                let algorithm = Algorithms()
+                if algorithm.isConnected(connections: linesAndPointsView.connectingPointsCollection,
+                                         numPoints: linesAndPointsView.numPoints) {
+                    simulateBeginShowBtn.setTitle(PropertyKeys.start, for: .normal)
+                }
                 tempLocation = minButton?.center
                 selectedButton?.setTitleColor(.white, for: .normal)
                 selectedButton?.backgroundColor = .blue
-              //  print(linesAndPointsView.isConnectedGraph())
             } else {
                 minButton?.backgroundColor = .yellow
                 minButton?.setTitleColor(.black, for: .normal)
@@ -72,7 +78,7 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
     
             linesAndPointsView.addPoint(button: button)
         
-            if linesAndPointsView.numPoints > PropertyKeys.minPointsToBegin {
+            if linesAndPointsView.numPoints >= PropertyKeys.minPointsToBegin {
                 simulateBeginShowBtn.isEnabled = true
             }
             
@@ -83,15 +89,20 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
     }
     
     @objc func pointTapped(sender: UIButton!) {
-        if !isCompleteGraph && simulateBeginShowBtn.currentTitle == PropertyKeys.connectPoints {
+        if !isCompleteGraph && simulateBeginShowBtn.currentTitle == PropertyKeys.connectPoints ||
+           !isCompleteGraph && simulateBeginShowBtn.currentTitle == PropertyKeys.start {
             if simulateBeginShowBtn.currentTitle != PropertyKeys.begin {
                 numPointsTapped = numPointsTapped + 1
                 if numPointsTapped % 2 == 0 {
                     linesAndPointsView.connectPointsUndirected(p1: selectedButton!, p2: sender)
+                    let algorithm = Algorithms()
+                    if algorithm.isConnected(connections: linesAndPointsView.connectingPointsCollection,
+                                             numPoints: linesAndPointsView.numPoints) {
+                        simulateBeginShowBtn.setTitle(PropertyKeys.start, for: .normal)
+                    }
                     tempLocation = sender.center
                     selectedButton?.backgroundColor = .blue
                     selectedButton?.setTitleColor(.white, for: .normal)
-                //    print(linesAndPointsView.isConnectedGraph())
                 } else {
                     tempLocation = sender.center
                     sender.backgroundColor = .yellow
@@ -114,11 +125,13 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
     @IBAction func simulateBeginShowBtnTapped(_ sender: UIButton) {
         if simulateBeginShowBtn.currentTitle == PropertyKeys.begin {
             if isCompleteGraph {
+                linesAndPointsView.performAlgorithm(chosenAlgorithm: algorithmName.title!)
                 revealToolbarButtons()
             } else {
                 simulateBeginShowBtn.setTitle(PropertyKeys.connectPoints, for: .normal)
             }
-        } else if simulateBeginShowBtn.currentTitle == PropertyKeys.connectPoints {
+        }  else if simulateBeginShowBtn.currentTitle == PropertyKeys.start {
+            linesAndPointsView.performAlgorithm(chosenAlgorithm: algorithmName.title!)
             revealToolbarButtons()
         }
     }
@@ -168,7 +181,7 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
         simulateBeginShowBtn.setTitle("Total weight: \(str) points", for: .normal)
     }
     
-    func canShangeConnectedStatus() -> Bool {
+    func canChangeCompleteGraphStatus() -> Bool {
         if linesAndPointsView.numPoints > 0 {
             return false
         } else {

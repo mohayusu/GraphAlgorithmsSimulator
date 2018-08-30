@@ -18,12 +18,14 @@ class LinesAndPoints: UIView {
     }
     
     var allPoints: [UIButton] = []
+    var allLineConnections: [Pair] = []
     var numPoints: Int = 0
     var weightOfPathString: String = ""
     var delegate: LinesAndPointsDelegate?
     var drawFinalGraph = false
     var drawNextStep = false
     var connectingPointsCollection: [Int : [Int]] = [:]
+    var algorithm = Algorithms()
     
     func addPoint(button: UIButton) {
         allPoints.append(button)
@@ -61,13 +63,6 @@ class LinesAndPoints: UIView {
         }
     }
     
-    func isConnectedGraph() -> Bool {
-        /*print("\(connectingPoints.count) \(allPoints.count)")
-        return (connectingPoints.count + 1) >= allPoints.count*/
-        return true
-        // visited
-    }
-    
     func clearScreen() {
         allPoints.removeAll()
         connectingPointsCollection.removeAll()
@@ -93,17 +88,22 @@ class LinesAndPoints: UIView {
         self.setNeedsDisplay()
     }
     
-    func printLines() {
-
+    func performAlgorithm(chosenAlgorithm: String) {
+        algorithm = Algorithms()
+        switch chosenAlgorithm {
+            case Algorithms.PropertyKeys.kruskal:
+                allLineConnections = algorithm.kruskals(points: allPoints, connections: connectingPointsCollection, isConnected: true)
+            default:
+                allLineConnections = algorithm.dijkstra(points: allPoints, connections: connectingPointsCollection, destination: 3)
+        }
     }
     
     func showFinalGraph() {
         let line = UIBezierPath()
-        let algorithm = Algorithms()
         line.lineWidth = 1.5
-        let myPairs: [Pair] = algorithm.kruskals(points: allPoints, connections: connectingPointsCollection, isConnected: true)
-        for i in myPairs {
+        for i in allLineConnections {
             if i.savePointTemporarily == nil { // this being nill signifies that the point is in the final graph
+                print(i)
                 line.move(to: allPoints[i.first].center)
                 line.addLine(to: allPoints[i.second].center)
                 line.stroke()
@@ -115,7 +115,7 @@ class LinesAndPoints: UIView {
     
     func showGraphWithNextConnection() {
         let line = UIBezierPath()
-        UIColor.brown.setStroke()
+        UIColor.blue.setStroke()
         line.lineWidth = 1.5
         for connectionKey in connectingPointsCollection.keys {
             for connectionValue in connectingPointsCollection[connectionKey]! {
@@ -130,29 +130,27 @@ class LinesAndPoints: UIView {
     var currStep: Int = 0
     var savedPointLocationIndex: Int?
     func updateGraphWithNextStep() {
-        
-        let algorithm = Algorithms()
-        let myPairs: [Pair] = algorithm.kruskals(points: allPoints, connections: connectingPointsCollection, isConnected: true)
         currStep += 1
         
-        if currStep == myPairs.count - 1 {
+        if currStep == allLineConnections.count - 1 {
             updateView(isFinal: true)
             currStep -= 1
             return
         }
         
         let line = UIBezierPath()
-        UIColor.brown.setStroke()
+        UIColor.blue.setStroke()
         line.lineWidth = 1.5
         
         // we save a new line so we should get rid of the one we were already saving
-        if (savedPointLocationIndex != nil && myPairs[currStep - 1].savePointTemporarily != nil &&
-                myPairs[currStep - 1].savePointTemporarily == true) || currStep - 1 == myPairs.count {
+        if (savedPointLocationIndex != nil && allLineConnections[currStep - 1].savePointTemporarily != nil &&
+                allLineConnections[currStep - 1].savePointTemporarily == true) || currStep - 1 == allLineConnections.count {
             savedPointLocationIndex = nil
         }
         
         for index in 0..<currStep {
-            let i = myPairs[index]
+            print(allLineConnections)
+            let i = allLineConnections[index]
             
             // this being nill signifies that the point is in the final graph
             if i.savePointTemporarily == nil {
@@ -160,7 +158,7 @@ class LinesAndPoints: UIView {
                 line.move(to: allPoints[i.first].center)
                 line.addLine(to: allPoints[i.second].center)
                 line.stroke()
-                UIColor.brown.setStroke()
+                UIColor.blue.setStroke()
             } else if savedPointLocationIndex != nil && index == savedPointLocationIndex {
                 line.move(to: allPoints[i.first].center)
                 line.addLine(to: allPoints[i.second].center)
@@ -180,7 +178,7 @@ class LinesAndPoints: UIView {
     
     override func draw(_ rect: CGRect) {
         UIColor.red.setStroke()
-        if numPoints > 2 {
+        if numPoints >= GraphViewController.PropertyKeys.minPointsToBegin {
             if drawFinalGraph {
                showFinalGraph()
             } else if drawNextStep {
