@@ -10,6 +10,9 @@ import UIKit
 
 protocol LinesAndPointsDelegate {
     func showFinalWeightValue(str: String)
+    func addRedLineBetween(point1: CGPoint, point2: CGPoint)
+    func drawRedLines()
+    func removeLastRedLine()
 }
 
 class LinesAndPoints: UIView {
@@ -66,9 +69,15 @@ class LinesAndPoints: UIView {
     func clearScreen() {
         allPoints.removeAll()
         connectingPointsCollection.removeAll()
-        subviews.forEach({ $0.removeFromSuperview() }) // removes points
+        subviews.forEach({ // removes points
+            if $0.tag != 1 {
+                $0.removeFromSuperview()
+            }
+            
+        })
         numPoints = 0
         currStep = 0
+        savedPointLocationIndex = nil;
         updateView(isFinal: false) // removes lines; numPoints is 0
     }
     
@@ -99,16 +108,13 @@ class LinesAndPoints: UIView {
     }
     
     func showFinalGraph() {
-        let line = UIBezierPath()
-        line.lineWidth = 1.5
-        for i in allLineConnections {
-            if i.savePointTemporarily == nil { // this being nill signifies that the point is in the final graph
-                print(i)
-                line.move(to: allPoints[i.first].center)
-                line.addLine(to: allPoints[i.second].center)
-                line.stroke()
+        for index in currStep..<allLineConnections.count {
+            let i = allLineConnections[index]
+            if i.isInFinalGraph {
+                delegate?.addRedLineBetween(point1: allPoints[i.first].center, point2: allPoints[i.second].center)
             }
         }
+        delegate?.drawRedLines()
         weightOfPathString = String(format: "%.2f", algorithm.totalWeight)
         delegate?.showFinalWeightValue(str: weightOfPathString)
     }
@@ -132,9 +138,10 @@ class LinesAndPoints: UIView {
     func updateGraphWithNextStep() {
         currStep += 1
         
-        if currStep == allLineConnections.count - 1 {
-            updateView(isFinal: true)
+        // it's the final step, so we just show the final graph
+        if currStep == allLineConnections.count {
             currStep -= 1
+            updateView(isFinal: true)
             return
         }
         
@@ -143,27 +150,21 @@ class LinesAndPoints: UIView {
         line.lineWidth = 1.5
         
         // we save a new line so we should get rid of the one we were already saving
-        if (savedPointLocationIndex != nil && allLineConnections[currStep - 1].savePointTemporarily != nil &&
+        if (savedPointLocationIndex != nil && !allLineConnections[currStep - 1].isInFinalGraph &&
                 allLineConnections[currStep - 1].savePointTemporarily == true) || currStep - 1 == allLineConnections.count {
             savedPointLocationIndex = nil
         }
         
         for index in 0..<currStep {
-            print(allLineConnections)
             let i = allLineConnections[index]
             
-            // this being nill signifies that the point is in the final graph
-            if i.savePointTemporarily == nil {
-                UIColor.red.setStroke()
-                line.move(to: allPoints[i.first].center)
-                line.addLine(to: allPoints[i.second].center)
-                line.stroke()
-                UIColor.blue.setStroke()
+            if i.isInFinalGraph && index == currStep - 1 {
+                delegate?.addRedLineBetween(point1: allPoints[i.first].center, point2: allPoints[i.second].center)
             } else if savedPointLocationIndex != nil && index == savedPointLocationIndex {
                 line.move(to: allPoints[i.first].center)
                 line.addLine(to: allPoints[i.second].center)
                 line.stroke()
-            } else if i.savePointTemporarily == true || index == currStep - 1 {
+            } else if index == currStep - 1 {
                 if i.savePointTemporarily == true {
                     savedPointLocationIndex = index
                 }
@@ -173,11 +174,21 @@ class LinesAndPoints: UIView {
             }
             
         }
+        delegate?.drawRedLines()
         
     }
     
+    func decreaseCurrStep() {
+        if currStep > 1 {
+            if allLineConnections[currStep - 1].isInFinalGraph {
+                delegate?.removeLastRedLine()
+            }
+            currStep -= 2
+            updateViewSteps()
+        }
+    }
+    
     override func draw(_ rect: CGRect) {
-        UIColor.red.setStroke()
         if numPoints >= GraphViewController.PropertyKeys.minPointsToBegin {
             if drawFinalGraph {
                showFinalGraph()

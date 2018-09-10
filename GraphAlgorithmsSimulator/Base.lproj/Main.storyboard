@@ -46,8 +46,20 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jPb-zu-fFy" customClass="LinesAndPoints" customModule="GraphAlgorithmsSimulator" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kYs-9P-lzl" customClass="RedLine" customModule="GraphAlgorithmsSimulator" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="559"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="kYs-9P-lzl" secondAttribute="trailing" id="A1u-L1-Bu8"/>
+                                            <constraint firstAttribute="bottom" secondItem="kYs-9P-lzl" secondAttribute="bottom" id="Cb0-iV-Ulc"/>
+                                            <constraint firstItem="kYs-9P-lzl" firstAttribute="top" secondItem="jPb-zu-fFy" secondAttribute="top" id="lPJ-nH-F9K"/>
+                                            <constraint firstItem="kYs-9P-lzl" firstAttribute="leading" secondItem="jPb-zu-fFy" secondAttribute="leading" id="nIK-ho-2MW"/>
+                                        </constraints>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="bjY-2v-pUQ" appends="YES" id="eUc-d8-e3I"/>
                                         </connections>
@@ -62,7 +74,7 @@
                                     <constraint firstAttribute="bottom" secondItem="jPb-zu-fFy" secondAttribute="bottom" id="hiY-vn-edV"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pd2-er-PhQ">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pd2-er-PhQ" userLabel="Toolbar">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ad4-zx-q1c">
@@ -128,6 +140,7 @@
                         <outlet property="linesAndPointsView" destination="jPb-zu-fFy" id="2OC-r7-hSv"/>
                         <outlet property="menuButton" destination="dav-Kj-E6s" id="gCd-EV-U0Z"/>
                         <outlet property="navBar" destination="n4V-bp-ZX7" id="Yzj-2v-LVT"/>
+                        <outlet property="redLineView" destination="kYs-9P-lzl" id="xpJ-H7-HiO"/>
                         <outlet property="simulateBeginShowBtn" destination="bg2-lx-Unt" id="IGT-9r-rSb"/>
                         <outlet property="skipButton" destination="4bL-1L-F9a" id="Uqz-hL-E40"/>
                         <outlet property="stepForwardButton" destination="YPJ-K1-SkR" id="lDH-jZ-jVL"/>

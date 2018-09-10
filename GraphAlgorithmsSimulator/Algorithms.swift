@@ -119,7 +119,6 @@ class Algorithms {
             cache[currentPoint!].visited = true
             
             if currentPoint! == destination {
-                print("destination \(destination)")
                 totalWeight = verticesInfo[destination].distance
                 var precedingLocation = verticesInfo[destination].precedingVertex
                 

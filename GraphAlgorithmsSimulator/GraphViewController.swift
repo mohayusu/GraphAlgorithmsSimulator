@@ -11,7 +11,7 @@ import UIKit
 class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDelegate {
     struct PropertyKeys {
         static let clear = "Clear"
-        static let simulate = "Simulate"
+        static let stepBack = "Step back"
         static let begin = "Begin"
         static let start = "Start"
         static let minPointsToBegin = 2
@@ -25,6 +25,7 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
     @IBOutlet weak var skipButton: UIButton!
     @IBOutlet weak var clearButton: UIBarButtonItem!
     @IBOutlet weak var linesAndPointsView: LinesAndPoints!
+    @IBOutlet weak var redLineView: RedLine!
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var menuButton: UIBarButtonItem!
     var isCompleteGraph: Bool!
@@ -118,6 +119,7 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
     @IBAction func clearButtonTapped(_ sender: UIBarButtonItem) {
         hideToolbarButtons()
         linesAndPointsView.clearScreen()
+        redLineView.removeAllLines()
         numPointsTapped = 0
         tempLocation = nil
     }
@@ -133,6 +135,9 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
         }  else if simulateBeginShowBtn.currentTitle == PropertyKeys.start {
             linesAndPointsView.performAlgorithm(chosenAlgorithm: algorithmName.title!)
             revealToolbarButtons()
+        } else if simulateBeginShowBtn.currentTitle == PropertyKeys.stepBack {
+            linesAndPointsView.decreaseCurrStep()
+          //  linesAndPointsView.updateViewSteps()
         }
     }
     
@@ -170,7 +175,7 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
         skipButton.isHidden = false
         stepForwardButton.isHidden = false
         
-        simulateBeginShowBtn.setTitle(PropertyKeys.simulate, for: .normal)
+        simulateBeginShowBtn.setTitle(PropertyKeys.stepBack, for: .normal)
         tapGesture.isEnabled = false
     }
     
@@ -179,6 +184,18 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
         tapGesture.isEnabled = false
         simulateBeginShowBtn.isEnabled = true
         simulateBeginShowBtn.setTitle("Total weight: \(str) points", for: .normal)
+    }
+    
+    func addRedLineBetween(point1: CGPoint, point2: CGPoint) {
+        redLineView.addLine(point1: point1, point2: point2)
+    }
+    
+    func drawRedLines() {
+        redLineView.drawRedLines()
+    }
+    
+    func removeLastRedLine() {
+        redLineView.removeLastLine()
     }
     
     func canChangeCompleteGraphStatus() -> Bool {
@@ -196,7 +213,9 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        linesAndPointsView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        linesAndPointsView.backgroundColor = UIColor.white.withAlphaComponent(0.1)
+        redLineView.backgroundColor = UIColor.white.withAlphaComponent(0.1)
+        redLineView.tag = 1
         UIApplication.shared.statusBarStyle = .lightContent
         sideMenus()
         
