@@ -94,7 +94,7 @@
                                                 <color key="backgroundColor" red="0.65473202720000001" green="0.65473202720000001" blue="0.65473202720000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Simulate"/>
                                                 <connections>
-                                                    <action selector="simulateBeginShowBtnTapped:" destination="juF-TV-gOj" eventType="touchUpInside" id="v82-1W-sF6"/>
+                                                    <action selector="stepbackBeginAndShowBtnTapped:" destination="juF-TV-gOj" eventType="touchUpInside" id="aqY-Xa-P8b"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YPJ-K1-SkR">
@@ -139,11 +139,10 @@
                         <outlet property="clearButton" destination="BG4-Dd-leu" id="gV5-l7-BVc"/>
                         <outlet property="linesAndPointsView" destination="jPb-zu-fFy" id="2OC-r7-hSv"/>
                         <outlet property="menuButton" destination="dav-Kj-E6s" id="gCd-EV-U0Z"/>
-                        <outlet property="navBar" destination="n4V-bp-ZX7" id="Yzj-2v-LVT"/>
                         <outlet property="redLineView" destination="kYs-9P-lzl" id="xpJ-H7-HiO"/>
-                        <outlet property="simulateBeginShowBtn" destination="bg2-lx-Unt" id="IGT-9r-rSb"/>
                         <outlet property="skipButton" destination="4bL-1L-F9a" id="Uqz-hL-E40"/>
                         <outlet property="stepForwardButton" destination="YPJ-K1-SkR" id="lDH-jZ-jVL"/>
+                        <outlet property="stepbackBeginAndShowBtn" destination="bg2-lx-Unt" id="x7I-LH-LI9"/>
                         <outlet property="tapGesture" destination="bjY-2v-pUQ" id="rO6-0e-Z7L"/>
                     </connections>
                 </viewController>

@@ -19,14 +19,13 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
     }
     
     @IBOutlet weak var algorithmName: UINavigationItem!
-    @IBOutlet weak var simulateBeginShowBtn: UIButton!
+    @IBOutlet weak var stepbackBeginAndShowBtn: UIButton!
     @IBOutlet var tapGesture: UITapGestureRecognizer!
     @IBOutlet weak var stepForwardButton: UIButton!
     @IBOutlet weak var skipButton: UIButton!
     @IBOutlet weak var clearButton: UIBarButtonItem!
     @IBOutlet weak var linesAndPointsView: LinesAndPoints!
     @IBOutlet weak var redLineView: RedLine!
-    @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var menuButton: UIBarButtonItem!
     var isCompleteGraph: Bool!
     var numPointsTapped: Int!
@@ -36,8 +35,8 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
     @IBAction func graphTapped(_ sender: UITapGestureRecognizer) {
         let location = sender.location(in: linesAndPointsView)
         
-        if !isCompleteGraph && simulateBeginShowBtn.currentTitle == PropertyKeys.connectPoints ||
-            !isCompleteGraph && simulateBeginShowBtn.currentTitle == PropertyKeys.start {
+        if !isCompleteGraph && stepbackBeginAndShowBtn.currentTitle == PropertyKeys.connectPoints ||
+            !isCompleteGraph && stepbackBeginAndShowBtn.currentTitle == PropertyKeys.start {
             var minDistance: Double = Double.infinity
             var minButton: UIButton?
             for i in linesAndPointsView.allPoints {
@@ -53,7 +52,7 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
                 let algorithm = Algorithms()
                 if algorithm.isConnected(connections: linesAndPointsView.connectingPointsCollection,
                                          numPoints: linesAndPointsView.numPoints) {
-                    simulateBeginShowBtn.setTitle(PropertyKeys.start, for: .normal)
+                    stepbackBeginAndShowBtn.setTitle(PropertyKeys.start, for: .normal)
                 }
                 tempLocation = minButton?.center
                 selectedButton?.setTitleColor(.white, for: .normal)
@@ -80,7 +79,7 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
             linesAndPointsView.addPoint(button: button)
         
             if linesAndPointsView.numPoints >= PropertyKeys.minPointsToBegin {
-                simulateBeginShowBtn.isEnabled = true
+                stepbackBeginAndShowBtn.isEnabled = true
             }
             
             if isCompleteGraph {
@@ -90,16 +89,16 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
     }
     
     @objc func pointTapped(sender: UIButton!) {
-        if !isCompleteGraph && simulateBeginShowBtn.currentTitle == PropertyKeys.connectPoints ||
-           !isCompleteGraph && simulateBeginShowBtn.currentTitle == PropertyKeys.start {
-            if simulateBeginShowBtn.currentTitle != PropertyKeys.begin {
+        if !isCompleteGraph && stepbackBeginAndShowBtn.currentTitle == PropertyKeys.connectPoints ||
+           !isCompleteGraph && stepbackBeginAndShowBtn.currentTitle == PropertyKeys.start {
+            if stepbackBeginAndShowBtn.currentTitle != PropertyKeys.begin {
                 numPointsTapped = numPointsTapped + 1
                 if numPointsTapped % 2 == 0 {
                     linesAndPointsView.connectPointsUndirected(p1: selectedButton!, p2: sender)
                     let algorithm = Algorithms()
                     if algorithm.isConnected(connections: linesAndPointsView.connectingPointsCollection,
                                              numPoints: linesAndPointsView.numPoints) {
-                        simulateBeginShowBtn.setTitle(PropertyKeys.start, for: .normal)
+                        stepbackBeginAndShowBtn.setTitle(PropertyKeys.start, for: .normal)
                     }
                     tempLocation = sender.center
                     selectedButton?.backgroundColor = .blue
@@ -124,18 +123,18 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
         tempLocation = nil
     }
     
-    @IBAction func simulateBeginShowBtnTapped(_ sender: UIButton) {
-        if simulateBeginShowBtn.currentTitle == PropertyKeys.begin {
+    @IBAction func stepbackBeginAndShowBtnTapped(_ sender: UIButton) {
+        if stepbackBeginAndShowBtn.currentTitle == PropertyKeys.begin {
             if isCompleteGraph {
                 linesAndPointsView.performAlgorithm(chosenAlgorithm: algorithmName.title!)
                 revealToolbarButtons()
             } else {
-                simulateBeginShowBtn.setTitle(PropertyKeys.connectPoints, for: .normal)
+                stepbackBeginAndShowBtn.setTitle(PropertyKeys.connectPoints, for: .normal)
             }
-        }  else if simulateBeginShowBtn.currentTitle == PropertyKeys.start {
+        }  else if stepbackBeginAndShowBtn.currentTitle == PropertyKeys.start {
             linesAndPointsView.performAlgorithm(chosenAlgorithm: algorithmName.title!)
             revealToolbarButtons()
-        } else if simulateBeginShowBtn.currentTitle == PropertyKeys.stepBack {
+        } else if stepbackBeginAndShowBtn.currentTitle == PropertyKeys.stepBack {
             linesAndPointsView.decreaseCurrStep()
           //  linesAndPointsView.updateViewSteps()
         }
@@ -165,9 +164,9 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
     func hideToolbarButtons() {
         skipButton.isHidden = true
         stepForwardButton.isHidden = true
-        simulateBeginShowBtn.isEnabled = false
+        stepbackBeginAndShowBtn.isEnabled = false
         
-        simulateBeginShowBtn.setTitle(PropertyKeys.begin, for: .normal)
+        stepbackBeginAndShowBtn.setTitle(PropertyKeys.begin, for: .normal)
         tapGesture.isEnabled = true
     }
     
@@ -175,15 +174,15 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
         skipButton.isHidden = false
         stepForwardButton.isHidden = false
         
-        simulateBeginShowBtn.setTitle(PropertyKeys.stepBack, for: .normal)
+        stepbackBeginAndShowBtn.setTitle(PropertyKeys.stepBack, for: .normal)
         tapGesture.isEnabled = false
     }
     
     func showFinalWeightValue(str: String) { // LinesAndPoints delegate
         hideToolbarButtons()
         tapGesture.isEnabled = false
-        simulateBeginShowBtn.isEnabled = true
-        simulateBeginShowBtn.setTitle("Total weight: \(str) points", for: .normal)
+        stepbackBeginAndShowBtn.isEnabled = true
+        stepbackBeginAndShowBtn.setTitle("Total weight: \(str) points", for: .normal)
     }
     
     func addRedLineBetween(point1: CGPoint, point2: CGPoint) {
