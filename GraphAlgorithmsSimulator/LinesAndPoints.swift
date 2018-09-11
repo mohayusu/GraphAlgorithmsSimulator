@@ -35,7 +35,9 @@ class LinesAndPoints: UIView {
         numPoints += 1
     }
     
-    func connectPointsUndirected(p1: UIButton, p2: UIButton) {
+    // connects two points in a non-connected graph
+    func connectPointsNotConnectedGraph(p1: UIButton, p2: UIButton) {
+        // the title of the button represents its number
         guard let title1 = p1.currentTitle else { return }
         guard let title2 = p2.currentTitle else { return }
         
@@ -70,7 +72,7 @@ class LinesAndPoints: UIView {
         allPoints.removeAll()
         connectingPointsCollection.removeAll()
         subviews.forEach({ // removes points
-            if $0.tag != 1 {
+            if $0.tag != RedLine.PropertyKeys.redLineTag {
                 $0.removeFromSuperview()
             }
             
@@ -101,9 +103,11 @@ class LinesAndPoints: UIView {
         algorithm = Algorithms()
         switch chosenAlgorithm {
             case Algorithms.PropertyKeys.kruskal:
-                allLineConnections = algorithm.kruskals(points: allPoints, connections: connectingPointsCollection, isConnected: true)
+                allLineConnections = algorithm.kruskals(points: allPoints,
+                                                        connections: connectingPointsCollection, isConnected: true)
             default:
-                allLineConnections = algorithm.dijkstra(points: allPoints, connections: connectingPointsCollection, destination: 3)
+                allLineConnections = algorithm.dijkstra(points: allPoints,
+                                                        connections: connectingPointsCollection, destination: 3)
         }
     }
     
@@ -111,7 +115,8 @@ class LinesAndPoints: UIView {
         for index in currStep..<allLineConnections.count {
             let i = allLineConnections[index]
             if i.isInFinalGraph {
-                delegate?.addRedLineBetween(point1: allPoints[i.first].center, point2: allPoints[i.second].center)
+                delegate?.addRedLineBetween(point1: allPoints[i.first].center,
+                                            point2: allPoints[i.second].center)
             }
         }
         delegate?.drawRedLines()
@@ -136,11 +141,8 @@ class LinesAndPoints: UIView {
     var currStep: Int = 0
     var savedPointLocationIndex: Int?
     func updateGraphWithNextStep() {
-        currStep += 1
-        
         // it's the final step, so we just show the final graph
         if currStep == allLineConnections.count {
-            currStep -= 1
             updateView(isFinal: true)
             return
         }
@@ -150,32 +152,30 @@ class LinesAndPoints: UIView {
         line.lineWidth = 1.5
         
         // we save a new line so we should get rid of the one we were already saving
-        if (savedPointLocationIndex != nil && !allLineConnections[currStep - 1].isInFinalGraph &&
-                allLineConnections[currStep - 1].savePointTemporarily == true) || currStep - 1 == allLineConnections.count {
+        if (savedPointLocationIndex != nil && !allLineConnections[currStep].isInFinalGraph &&
+                allLineConnections[currStep].savePointTemporarily == true) ||
+                currStep == allLineConnections.count {
             savedPointLocationIndex = nil
         }
         
-        for index in 0..<currStep {
-            let i = allLineConnections[index]
+        for index in 0...currStep {
+            let currConnection = allLineConnections[index]
             
-            if i.isInFinalGraph && index == currStep - 1 {
-                delegate?.addRedLineBetween(point1: allPoints[i.first].center, point2: allPoints[i.second].center)
-            } else if savedPointLocationIndex != nil && index == savedPointLocationIndex {
-                line.move(to: allPoints[i.first].center)
-                line.addLine(to: allPoints[i.second].center)
-                line.stroke()
-            } else if index == currStep - 1 {
-                if i.savePointTemporarily == true {
+            if currConnection.isInFinalGraph && index == currStep {
+                delegate?.addRedLineBetween(point1: allPoints[currConnection.first].center,
+                                            point2: allPoints[currConnection.second].center)
+            } else if index == currStep ||
+                      (savedPointLocationIndex != nil && index == savedPointLocationIndex) {
+                if index == currStep && currConnection.savePointTemporarily == true {
                     savedPointLocationIndex = index
                 }
-                line.move(to: allPoints[i.first].center)
-                line.addLine(to: allPoints[i.second].center)
+                line.move(to: allPoints[currConnection.first].center)
+                line.addLine(to: allPoints[currConnection.second].center)
                 line.stroke()
             }
-            
         }
         delegate?.drawRedLines()
-        
+        currStep += 1
     }
     
     func decreaseCurrStep() {

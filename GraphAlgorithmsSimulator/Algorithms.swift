@@ -28,7 +28,7 @@ class Algorithms {
     }
     
     struct VertexInfo {
-        var vertex: CGPoint //  pair<int, int> vertex;
+        var vertex: CGPoint
         var distance = Double.infinity
         var precedingVertex: Int
     }
@@ -139,9 +139,6 @@ class Algorithms {
                     minDistance = verticesInfo[index].distance
                 }
             }
-      
-          //  let aPair = Pair(first: currentPoint!, second: nextCurrentPoint, isInFinalGraph: true, savePointTemporarily: nil)
-          //  myPairs.append(aPair)
                 
             currentPoint = nextCurrentPoint
             

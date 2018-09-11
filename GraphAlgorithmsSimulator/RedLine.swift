@@ -14,6 +14,9 @@ struct LinePair {
 }
 
 class RedLine: UIView {
+    struct PropertyKeys {
+        static let redLineTag = 1
+    }
     var lines: [LinePair] = []
     
     func addLine(point1: CGPoint, point2: CGPoint) {

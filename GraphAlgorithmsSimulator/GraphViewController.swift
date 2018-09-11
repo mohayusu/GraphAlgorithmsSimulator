@@ -48,7 +48,7 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
             }
             numPointsTapped = numPointsTapped + 1
             if numPointsTapped % 2 == 0 {
-                linesAndPointsView.connectPointsUndirected(p1: selectedButton!, p2: minButton!)
+                linesAndPointsView.connectPointsNotConnectedGraph(p1: selectedButton!, p2: minButton!)
                 let algorithm = Algorithms()
                 if algorithm.isConnected(connections: linesAndPointsView.connectingPointsCollection,
                                          numPoints: linesAndPointsView.numPoints) {
@@ -67,8 +67,9 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
         } else {
         
             let diameter = CGFloat(LinesAndPoints.PropertyKeys.pointDiameter)
-            let button = UIButton(frame: CGRect(x: location.x - diameter / 2, y: location.y - diameter / 2,
-                                            width: diameter, height: diameter))
+            let button = UIButton(frame: CGRect(x: location.x - diameter / 2,
+                                                y: location.y - diameter / 2,
+                                                width: diameter, height: diameter))
             button.layer.cornerRadius = 0.5 * button.bounds.size.width
             button.clipsToBounds = true
             button.backgroundColor = .blue
@@ -94,7 +95,7 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
             if stepbackBeginAndShowBtn.currentTitle != PropertyKeys.begin {
                 numPointsTapped = numPointsTapped + 1
                 if numPointsTapped % 2 == 0 {
-                    linesAndPointsView.connectPointsUndirected(p1: selectedButton!, p2: sender)
+                    linesAndPointsView.connectPointsNotConnectedGraph(p1: selectedButton!, p2: sender)
                     let algorithm = Algorithms()
                     if algorithm.isConnected(connections: linesAndPointsView.connectingPointsCollection,
                                              numPoints: linesAndPointsView.numPoints) {
@@ -136,7 +137,6 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
             revealToolbarButtons()
         } else if stepbackBeginAndShowBtn.currentTitle == PropertyKeys.stepBack {
             linesAndPointsView.decreaseCurrStep()
-          //  linesAndPointsView.updateViewSteps()
         }
     }
     
@@ -198,11 +198,7 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
     }
     
     func canChangeCompleteGraphStatus() -> Bool {
-        if linesAndPointsView.numPoints > 0 {
-            return false
-        } else {
-            return true
-        }
+        return linesAndPointsView.numPoints > 0 ? false : true
     }
 
     func changeAlgorithmNameTo(algorithm: String) {
@@ -214,7 +210,7 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
 
         linesAndPointsView.backgroundColor = UIColor.white.withAlphaComponent(0.1)
         redLineView.backgroundColor = UIColor.white.withAlphaComponent(0.1)
-        redLineView.tag = 1
+        redLineView.tag = RedLine.PropertyKeys.redLineTag
         UIApplication.shared.statusBarStyle = .lightContent
         sideMenus()
         

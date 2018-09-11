@@ -248,39 +248,12 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.82354411530000005" green="0.82354411530000005" blue="0.82354411530000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="PRa-x3-caq">
-                                        <rect key="frame" x="0.0" y="188" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PRa-x3-caq" id="Oqw-v8-b6j">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yvj-pE-r7w">
-                                                    <rect key="frame" x="10" y="0.0" width="365" height="43.5"/>
-                                                    <state key="normal" title="Prim">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="algorithmChoiceTapped:" destination="8hU-kd-sgF" eventType="touchUpInside" id="b8T-aO-Vb1"/>
-                                                        <segue destination="ZuE-6Z-hkN" kind="unwind" unwindAction="unwindToGraphWithSegue:" id="YjS-PA-Ocs"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="yvj-pE-r7w" secondAttribute="bottom" id="EzQ-qb-8R0"/>
-                                                <constraint firstAttribute="trailing" secondItem="yvj-pE-r7w" secondAttribute="trailing" id="RIB-Vy-Fdc"/>
-                                                <constraint firstItem="yvj-pE-r7w" firstAttribute="leading" secondItem="Oqw-v8-b6j" secondAttribute="leading" constant="10" id="h1C-La-GzW"/>
-                                                <constraint firstItem="yvj-pE-r7w" firstAttribute="top" secondItem="Oqw-v8-b6j" secondAttribute="top" id="qBS-59-NU3"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.82354411530000005" green="0.82354411530000005" blue="0.82354411530000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Shortest Path" id="O0h-5Q-9WN">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="8L6-UJ-ZIj">
-                                        <rect key="frame" x="0.0" y="288" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="244" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8L6-UJ-ZIj" id="ab8-pv-mWN">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
