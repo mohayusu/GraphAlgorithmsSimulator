@@ -77,7 +77,7 @@ class Algorithms {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     
-    func dijkstra(points: [UIButton], connections: [Int: [Int]], destination: Int) -> [Pair] {
+    func dijkstra(points: [UIButton], connections: [Int: [Int]], startingLocation: Int, destination: Int) -> [Pair] {
         var myPairs: [Pair] = []
         var verticesInfo: [VertexInfo] = []
         let numPoints = points.count
@@ -100,9 +100,9 @@ class Algorithms {
             cache.append(Visited(visited: false))
         }
         
-        verticesInfo[0].distance = 0
-        cache[0].visited = true
-        var currentPoint: Int? = 0
+        verticesInfo[startingLocation].distance = 0
+        cache[startingLocation].visited = true
+        var currentPoint: Int? = startingLocation
         
         while currentPoint != nil {
             for connectingEnd in connections[currentPoint! + 1]! {

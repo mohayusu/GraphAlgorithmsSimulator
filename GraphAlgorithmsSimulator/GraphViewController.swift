@@ -16,6 +16,8 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
         static let start = "Start"
         static let minPointsToBegin = 2
         static let connectPoints = "Make a connected graph by tapping points"
+        static let selectStartingCommand = "Select starting position"
+        static let selectEndingCommand = "Select destination"
     }
     
     @IBOutlet weak var algorithmName: UINavigationItem!
@@ -90,7 +92,17 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
     }
     
     @objc func pointTapped(sender: UIButton!) {
-        if !isCompleteGraph && stepbackBeginAndShowBtn.currentTitle == PropertyKeys.connectPoints ||
+        guard let buttonNumString = sender.currentTitle else { return }
+        
+        if stepbackBeginAndShowBtn.currentTitle! == PropertyKeys.selectStartingCommand {
+            tapGesture.isEnabled = false;
+            linesAndPointsView.firstNumDijkstra = Int(buttonNumString)
+            stepbackBeginAndShowBtn.setTitle(PropertyKeys.selectEndingCommand, for: .normal);
+        } else if stepbackBeginAndShowBtn.currentTitle! == PropertyKeys.selectEndingCommand {
+            linesAndPointsView.destinationDijkstra = Int(buttonNumString)
+            stepbackBeginAndShowBtn.setTitle(PropertyKeys.start, for: .normal)
+        }
+        else if !isCompleteGraph && stepbackBeginAndShowBtn.currentTitle == PropertyKeys.connectPoints ||
            !isCompleteGraph && stepbackBeginAndShowBtn.currentTitle == PropertyKeys.start {
             if stepbackBeginAndShowBtn.currentTitle != PropertyKeys.begin {
                 numPointsTapped = numPointsTapped + 1
@@ -127,14 +139,32 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
     @IBAction func stepbackBeginAndShowBtnTapped(_ sender: UIButton) {
         if stepbackBeginAndShowBtn.currentTitle == PropertyKeys.begin {
             if isCompleteGraph {
-                linesAndPointsView.performAlgorithm(chosenAlgorithm: algorithmName.title!)
-                revealToolbarButtons()
+                if algorithmName.title! == Algorithms.PropertyKeys.dijkstra {
+                    tapGesture.isEnabled = false;
+                    if linesAndPointsView.firstNumDijkstra == nil {
+                        stepbackBeginAndShowBtn.setTitle(PropertyKeys.selectStartingCommand, for: .normal);
+                    } else if linesAndPointsView.destinationDijkstra == nil {
+                        stepbackBeginAndShowBtn.setTitle(PropertyKeys.selectEndingCommand, for: .normal);
+                    }
+                } else {
+                    linesAndPointsView.performAlgorithm(chosenAlgorithm: algorithmName.title!)
+                    revealToolbarButtons()
+                }
             } else {
                 stepbackBeginAndShowBtn.setTitle(PropertyKeys.connectPoints, for: .normal)
             }
         }  else if stepbackBeginAndShowBtn.currentTitle == PropertyKeys.start {
-            linesAndPointsView.performAlgorithm(chosenAlgorithm: algorithmName.title!)
-            revealToolbarButtons()
+            if algorithmName.title! == Algorithms.PropertyKeys.dijkstra && linesAndPointsView.destinationDijkstra == nil {
+                tapGesture.isEnabled = false;
+                if linesAndPointsView.firstNumDijkstra == nil {
+                    stepbackBeginAndShowBtn.setTitle(PropertyKeys.selectStartingCommand, for: .normal);
+                } else if linesAndPointsView.destinationDijkstra == nil {
+                    stepbackBeginAndShowBtn.setTitle(PropertyKeys.selectEndingCommand, for: .normal);
+                }
+            } else {
+                linesAndPointsView.performAlgorithm(chosenAlgorithm: algorithmName.title!)
+                revealToolbarButtons()
+            }
         } else if stepbackBeginAndShowBtn.currentTitle == PropertyKeys.stepBack {
             linesAndPointsView.decreaseCurrStep()
         }

@@ -29,6 +29,8 @@ class LinesAndPoints: UIView {
     var drawNextStep = false
     var connectingPointsCollection: [Int : [Int]] = [:]
     var algorithm = Algorithms()
+    var firstNumDijkstra: Int?
+    var destinationDijkstra: Int?
     
     func addPoint(button: UIButton) {
         allPoints.append(button)
@@ -79,7 +81,9 @@ class LinesAndPoints: UIView {
         })
         numPoints = 0
         currStep = 0
-        savedPointLocationIndex = nil;
+        savedPointLocationIndex = nil
+        destinationDijkstra = nil
+        firstNumDijkstra = nil
         updateView(isFinal: false) // removes lines; numPoints is 0
     }
     
@@ -107,7 +111,7 @@ class LinesAndPoints: UIView {
                                                         connections: connectingPointsCollection, isConnected: true)
             default:
                 allLineConnections = algorithm.dijkstra(points: allPoints,
-                                                        connections: connectingPointsCollection, destination: 3)
+                                                        connections: connectingPointsCollection, startingLocation: firstNumDijkstra! - 1, destination: destinationDijkstra! - 1)
         }
     }
     
