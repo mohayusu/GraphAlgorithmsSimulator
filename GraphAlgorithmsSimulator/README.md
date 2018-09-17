@@ -11,3 +11,7 @@ The app can be run on Xcode using the Xcode simulator. It is currently not avail
  [swrevealviewcontroller](https://github.com/John-Lluch/SWRevealViewController) - A UIViewController subclass for presenting side view controllers 
 
 ## Images
+![alt text](https://github.com/mohayusu/GraphAlgorithmsSimulator/blob/master/GraphAlgorithmsSimulator/Images/Homescreen.png)
+![alt text](https://github.com/mohayusu/GraphAlgorithmsSimulator/blob/master/GraphAlgorithmsSimulator/Images/Points.png)
+![alt text](https://github.com/mohayusu/GraphAlgorithmsSimulator/blob/master/GraphAlgorithmsSimulator/Images/Steps.png)
+![alt text](https://github.com/mohayusu/GraphAlgorithmsSimulator/blob/master/GraphAlgorithmsSimulator/Images/Final.png)

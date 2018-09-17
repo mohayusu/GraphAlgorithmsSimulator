@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D93726A8213B5C8100D2AD0C /* RedLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93726A7213B5C8100D2AD0C /* RedLine.swift */; };
 		D972490321500138008B8029 /* Images in Resources */ = {isa = PBXBuildFile; fileRef = D972490221500138008B8029 /* Images */; };
+		D97249052150022D008B8029 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D97249042150022D008B8029 /* README.md */; };
 		D9B672C2211D271D005FB77C /* Algorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B672C1211D271D005FB77C /* Algorithms.swift */; };
 		D9BA265D211514E400709267 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BA265C211514E400709267 /* AppDelegate.swift */; };
 		D9BA265F211514E400709267 /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BA265E211514E400709267 /* GraphViewController.swift */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		D93726A7213B5C8100D2AD0C /* RedLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedLine.swift; sourceTree = "<group>"; };
 		D972490221500138008B8029 /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
+		D97249042150022D008B8029 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = GraphAlgorithmsSimulator/README.md; sourceTree = "<group>"; };
 		D9B672C1211D271D005FB77C /* Algorithms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithms.swift; sourceTree = "<group>"; };
 		D9BA2659211514E400709267 /* GraphAlgorithmsSimulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GraphAlgorithmsSimulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9BA265C211514E400709267 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 		D9BA2650211514E400709267 = {
 			isa = PBXGroup;
 			children = (
+				D97249042150022D008B8029 /* README.md */,
 				D9BA265B211514E400709267 /* GraphAlgorithmsSimulator */,
 				D9BA265A211514E400709267 /* Products */,
 			);
@@ -149,6 +152,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D97249052150022D008B8029 /* README.md in Resources */,
 				D972490321500138008B8029 /* Images in Resources */,
 				D9BA26702115436200709267 /* Info.plist in Resources */,
 				D9BA2667211514E600709267 /* LaunchScreen.storyboard in Resources */,
