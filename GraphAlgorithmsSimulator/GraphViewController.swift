@@ -34,60 +34,68 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
     var tempLocation: CGPoint?
     var selectedButton: UIButton?
     
+    func connectingPointsInGraph(location: CGPoint) {
+        var minDistance: Double = Double.infinity
+        var minButton: UIButton?
+        // finds nearest point relative to where the user tapped
+        for i in linesAndPointsView.allPoints {
+            let tempDistance = Algorithms.calculateDistance(p1: location, p2: i.center)
+            if tempDistance < minDistance {
+                minDistance = tempDistance
+                minButton = i
+            }
+        }
+        numPointsTapped = numPointsTapped + 1
+        if numPointsTapped % 2 == 0 {
+            linesAndPointsView.connectPointsNotConnectedGraph(p1: selectedButton!, p2: minButton!)
+            let algorithm = Algorithms()
+            if algorithm.isConnected(connections: linesAndPointsView.connectingPointsCollection,
+                                     numPoints: linesAndPointsView.numPoints) {
+                stepbackBeginAndShowBtn.setTitle(PropertyKeys.start, for: .normal)
+            }
+            tempLocation = minButton?.center
+            selectedButton?.setTitleColor(.white, for: .normal)
+            selectedButton?.backgroundColor = .blue
+        } else {
+            minButton?.backgroundColor = .yellow
+            minButton?.setTitleColor(.black, for: .normal)
+            selectedButton = minButton
+            tempLocation = minButton?.center
+        }
+    }
+    
+    func addPointInGraph(location: CGPoint) {
+        let diameter = CGFloat(LinesAndPoints.PropertyKeys.pointDiameter)
+        let button = UIButton(frame: CGRect(x: location.x - diameter / 2,
+                                            y: location.y - diameter / 2,
+                                            width: diameter, height: diameter))
+        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        button.clipsToBounds = true
+        button.backgroundColor = .blue
+        button.setTitle("\(linesAndPointsView.numPoints + 1)", for: .normal)
+        linesAndPointsView.addSubview(button)
+        button.addTarget(self, action: #selector(pointTapped), for: .touchUpInside)
+        
+        linesAndPointsView.addPoint(button: button)
+        
+        if linesAndPointsView.numPoints >= PropertyKeys.minPointsToBegin {
+            stepbackBeginAndShowBtn.isEnabled = true
+        }
+        
+        if isCompleteGraph {
+            linesAndPointsView.addConnectionToCompleteGraph(num: linesAndPointsView.numPoints)
+        }
+    }
+    
     @IBAction func graphTapped(_ sender: UITapGestureRecognizer) {
         let location = sender.location(in: linesAndPointsView)
         
         if !isCompleteGraph && stepbackBeginAndShowBtn.currentTitle == PropertyKeys.connectPoints ||
             !isCompleteGraph && stepbackBeginAndShowBtn.currentTitle == PropertyKeys.start {
-            var minDistance: Double = Double.infinity
-            var minButton: UIButton?
-            for i in linesAndPointsView.allPoints {
-                let tempDistance = Algorithms.calculateDistance(p1: location, p2: i.center)
-                if tempDistance < minDistance {
-                    minDistance = tempDistance
-                    minButton = i
-                }
-            }
-            numPointsTapped = numPointsTapped + 1
-            if numPointsTapped % 2 == 0 {
-                linesAndPointsView.connectPointsNotConnectedGraph(p1: selectedButton!, p2: minButton!)
-                let algorithm = Algorithms()
-                if algorithm.isConnected(connections: linesAndPointsView.connectingPointsCollection,
-                                         numPoints: linesAndPointsView.numPoints) {
-                    stepbackBeginAndShowBtn.setTitle(PropertyKeys.start, for: .normal)
-                }
-                tempLocation = minButton?.center
-                selectedButton?.setTitleColor(.white, for: .normal)
-                selectedButton?.backgroundColor = .blue
-            } else {
-                minButton?.backgroundColor = .yellow
-                minButton?.setTitleColor(.black, for: .normal)
-                selectedButton = minButton
-                tempLocation = minButton?.center
-            }
+            connectingPointsInGraph(location: location)
             
         } else {
-        
-            let diameter = CGFloat(LinesAndPoints.PropertyKeys.pointDiameter)
-            let button = UIButton(frame: CGRect(x: location.x - diameter / 2,
-                                                y: location.y - diameter / 2,
-                                                width: diameter, height: diameter))
-            button.layer.cornerRadius = 0.5 * button.bounds.size.width
-            button.clipsToBounds = true
-            button.backgroundColor = .blue
-            button.setTitle("\(linesAndPointsView.numPoints + 1)", for: .normal)
-            linesAndPointsView.addSubview(button)
-            button.addTarget(self, action: #selector(pointTapped), for: .touchUpInside)
-    
-            linesAndPointsView.addPoint(button: button)
-        
-            if linesAndPointsView.numPoints >= PropertyKeys.minPointsToBegin {
-                stepbackBeginAndShowBtn.isEnabled = true
-            }
-            
-            if isCompleteGraph {
-                linesAndPointsView.addConnectionToCompleteGraph(num: linesAndPointsView.numPoints)
-            }
+            addPointInGraph(location: location)
         }
     }
     
@@ -136,16 +144,19 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
         tempLocation = nil
     }
     
+    func showDijkstraCommand() {
+        tapGesture.isEnabled = false
+        // prints appropriate dijkstra command to the button
+        linesAndPointsView.firstNumDijkstra == nil ?
+            stepbackBeginAndShowBtn.setTitle(PropertyKeys.selectStartingCommand, for: .normal):
+            stepbackBeginAndShowBtn.setTitle(PropertyKeys.selectEndingCommand, for: .normal)
+    }
+    
     @IBAction func stepbackBeginAndShowBtnTapped(_ sender: UIButton) {
         if stepbackBeginAndShowBtn.currentTitle == PropertyKeys.begin {
             if isCompleteGraph {
                 if algorithmName.title! == Algorithms.PropertyKeys.dijkstra {
-                    tapGesture.isEnabled = false;
-                    if linesAndPointsView.firstNumDijkstra == nil {
-                        stepbackBeginAndShowBtn.setTitle(PropertyKeys.selectStartingCommand, for: .normal);
-                    } else if linesAndPointsView.destinationDijkstra == nil {
-                        stepbackBeginAndShowBtn.setTitle(PropertyKeys.selectEndingCommand, for: .normal);
-                    }
+                    showDijkstraCommand()
                 } else {
                     linesAndPointsView.performAlgorithm(chosenAlgorithm: algorithmName.title!)
                     revealToolbarButtons()
@@ -154,13 +165,9 @@ class GraphViewController: UIViewController, LinesAndPointsDelegate, MenuTableDe
                 stepbackBeginAndShowBtn.setTitle(PropertyKeys.connectPoints, for: .normal)
             }
         }  else if stepbackBeginAndShowBtn.currentTitle == PropertyKeys.start {
+            // if the user hasn't entered a destination for dijkstra's algorithm
             if algorithmName.title! == Algorithms.PropertyKeys.dijkstra && linesAndPointsView.destinationDijkstra == nil {
-                tapGesture.isEnabled = false;
-                if linesAndPointsView.firstNumDijkstra == nil {
-                    stepbackBeginAndShowBtn.setTitle(PropertyKeys.selectStartingCommand, for: .normal);
-                } else if linesAndPointsView.destinationDijkstra == nil {
-                    stepbackBeginAndShowBtn.setTitle(PropertyKeys.selectEndingCommand, for: .normal);
-                }
+                showDijkstraCommand()
             } else {
                 linesAndPointsView.performAlgorithm(chosenAlgorithm: algorithmName.title!)
                 revealToolbarButtons()
