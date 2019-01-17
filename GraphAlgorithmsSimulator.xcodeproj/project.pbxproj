@@ -20,6 +20,8 @@
 		D9BA267A211649CA00709267 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D9BA2679211649CA00709267 /* SWRevealViewController.m */; };
 		D9BA267C2116574C00709267 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9BA267B2116574C00709267 /* MenuTableViewController.swift */; };
 		D9BA267E2117652400709267 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9BA267D2117652400709267 /* Assets.xcassets */; };
+		D9FAB3FF21F03F4C000D0611 /* MinimumSpanningTreeAlgorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FAB3FE21F03F4C000D0611 /* MinimumSpanningTreeAlgorithms.swift */; };
+		D9FAB40121F03F78000D0611 /* ShortestPathAlgorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FAB40021F03F78000D0611 /* ShortestPathAlgorithms.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		D9BA2679211649CA00709267 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		D9BA267B2116574C00709267 /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
 		D9BA267D2117652400709267 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D9FAB3FE21F03F4C000D0611 /* MinimumSpanningTreeAlgorithms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimumSpanningTreeAlgorithms.swift; sourceTree = "<group>"; };
+		D9FAB40021F03F78000D0611 /* ShortestPathAlgorithms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortestPathAlgorithms.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,8 @@
 				D9BA2665211514E600709267 /* LaunchScreen.storyboard */,
 				D9BA2668211514E600709267 /* Info.plist */,
 				D9BA2677211649C900709267 /* GraphAlgorithmsSimulator-Bridging-Header.h */,
+				D9FAB3FE21F03F4C000D0611 /* MinimumSpanningTreeAlgorithms.swift */,
+				D9FAB40021F03F78000D0611 /* ShortestPathAlgorithms.swift */,
 			);
 			path = GraphAlgorithmsSimulator;
 			sourceTree = "<group>";
@@ -166,6 +172,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9FAB3FF21F03F4C000D0611 /* MinimumSpanningTreeAlgorithms.swift in Sources */,
 				D9BA266F2115190E00709267 /* Graph.swift in Sources */,
 				D9BA26722115679100709267 /* LinesAndPoints.swift in Sources */,
 				D9B672C2211D271D005FB77C /* Algorithms.swift in Sources */,
@@ -173,6 +180,7 @@
 				D9BA267C2116574C00709267 /* MenuTableViewController.swift in Sources */,
 				D9BA265F211514E400709267 /* GraphViewController.swift in Sources */,
 				D9BA265D211514E400709267 /* AppDelegate.swift in Sources */,
+				D9FAB40121F03F78000D0611 /* ShortestPathAlgorithms.swift in Sources */,
 				D9BA267A211649CA00709267 /* SWRevealViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

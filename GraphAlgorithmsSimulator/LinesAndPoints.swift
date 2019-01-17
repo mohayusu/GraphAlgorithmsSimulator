@@ -28,7 +28,6 @@ class LinesAndPoints: UIView {
     var drawFinalGraph = false
     var drawNextStep = false
     var connectingPointsCollection: [Int : [Int]] = [:]
-    var algorithm = Algorithms()
     var firstNumDijkstra: Int?
     var destinationDijkstra: Int?
     
@@ -104,13 +103,14 @@ class LinesAndPoints: UIView {
     }
     
     func performAlgorithm(chosenAlgorithm: String) {
-        algorithm = Algorithms()
+        let shortestPath = ShortestPathAlgorithms()
+        let minimumSpanningTree = MinimumSpanningTreeAlgorithms()
         switch chosenAlgorithm {
             case Algorithms.PropertyKeys.kruskal:
-                allLineConnections = algorithm.kruskals(points: allPoints,
+                allLineConnections = minimumSpanningTree.kruskals(points: allPoints,
                                                         connections: connectingPointsCollection, isConnected: true)
             default:
-                allLineConnections = algorithm.dijkstra(points: allPoints,
+                allLineConnections = shortestPath.dijkstra(points: allPoints,
                                                         connections: connectingPointsCollection, startingLocation: firstNumDijkstra! - 1, destination: destinationDijkstra! - 1)
         }
     }
@@ -124,7 +124,7 @@ class LinesAndPoints: UIView {
             }
         }
         delegate?.drawRedLines()
-        weightOfPathString = String(format: "%.2f", algorithm.totalWeight)
+        //weightOfPathString = String(format: "%.2f", algorithm.totalWeight)
         delegate?.showFinalWeightValue(str: weightOfPathString)
     }
     
